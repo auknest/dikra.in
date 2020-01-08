@@ -1,0 +1,15 @@
+---------- Date: 2019-10-15 17:17:37 ~ IP : 103.78.171.57 ----------
+REQUEST URI : /index.php?route=checkout/checkout
+MOD DETAILS:
+   modFile   : /home/n4j7xo9m7hs6/public_html/vqmod/xml/dtdc_integration.xml
+   id        : Dikra DTDC INTEGRATION 
+   version   : 1.0.0
+   vqmver    : 1.0.0
+   author    : V2 Bhendekar
+
+File Name    : catalog/model/extension/payment/cod.php(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): $this->language->load('extension/payment/razorpay');
+
+----------------------------------------------------------------------
+
+

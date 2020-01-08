@@ -1,0 +1,15 @@
+---------- Date: 2019-09-05 08:10:00 ~ IP : 35.243.2.0 ----------
+REQUEST URI : /api/rest/account/token
+MOD DETAILS:
+   modFile   : /home/n4j7xo9m7hs6/public_html/vqmod/xml/dtdc_integration.xml
+   id        : Dikra DTDC INTEGRATION 
+   version   : 1.0.0
+   vqmver    : 1.0.0
+   author    : V2 Bhendekar
+
+File Name    : catalog/controller/rest/account.php(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): private function getRecurring($id) {
+
+----------------------------------------------------------------------
+
+

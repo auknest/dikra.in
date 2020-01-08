@@ -1,0 +1,74 @@
+
+.yellow-strip-wrap {
+    background: none repeat scroll 0 0 #000000;
+    left: 0;
+    opacity: 1;
+    position: fixed;
+    top: 87%;
+    width: 100%;
+    z-index: 99999 !important;
+}
+.yellow-strip-content {
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 5px 0;
+    width: 98%;
+}
+.yellow-strip-content div {
+    float: left;
+    padding: 0 0 0 1px;
+    color: #FFFFFF;
+	
+}.yellow-strip-text {
+    color: #000000;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 0 0;
+}
+.yellow-strip-inputbox input {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-bottom: 1px solid #323232;
+    border-image: none;
+    border-top: 1px solid #323232;
+    color: #5A5A5A;
+    font-size: 12px;
+    padding: 4px 1px;
+    width: 13%;
+}.button2 {
+
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #000000;
+    border-bottom: 1px solid #8F8888;
+    border-image: none;
+    border-top: 1px solid #8F8888;
+    color: #FFFFFF;
+    font-weight: bold;
+    padding: 2px 0;
+    width: 5%;	
+}.button2:hover {  color: #8F8888;}
+.subscription-skip {
+    background: url('fancy_close.png') no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    float: right;
+    height: 25px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 30px;
+}
+.error
+{
+color:#ffffff;
+
+}
+.success
+{
+color:#ffffff;
+
+}

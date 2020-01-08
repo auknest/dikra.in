@@ -1,0 +1,79 @@
+<modification>
+	<id>Hide Fax Field</id>
+	<version>2.0.1</version>
+	<vqmver>2.1.5</vqmver>
+	<author>The Krotek</author>
+	
+	<!-- Catalog: Account -->
+	
+	<file name="catalog/view/theme/*/template/account/register.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_fax; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="4"><![CDATA[<?php echo $entry_fax; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="fax" value="" />]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/account/edit.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_fax; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="4"><![CDATA[<?php echo $entry_fax; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="fax" value="" />]]></add>
+		</operation>
+	</file>
+	
+	<!-- Catalog: Affiliate -->
+		
+	<file name="catalog/view/theme/*/template/affiliate/register.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_fax; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="4"><![CDATA[<?php echo $entry_fax; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="fax" value="" />]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/affiliate/edit.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_fax; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="4"><![CDATA[<?php echo $entry_fax; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="fax" value="" />]]></add>
+		</operation>
+	</file>
+	
+	<!-- Catalog: Checkout -->
+	
+	<file name="catalog/view/theme/*/template/checkout/register.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_fax; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<?php echo $entry_fax; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="fax" value="" />]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/checkout/guest.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_fax; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<?php echo $entry_fax; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="fax" value="" />]]></add>
+		</operation>		
+	</file>
+	
+</modification>

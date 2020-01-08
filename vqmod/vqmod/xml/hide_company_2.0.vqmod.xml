@@ -1,0 +1,119 @@
+<modification>
+	<id>Hide Company Field</id>
+	<version>2.0.2</version>
+	<vqmver>2.1.5</vqmver>
+	<author>The Krotek</author>
+
+	<!-- Catalog: Account -->
+
+	<file name="catalog/view/theme/*/template/account/register.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="4"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="company" value="" />]]></add>
+		</operation>			
+	</file>
+	
+	<file name="catalog/view/theme/*/template/account/address_form.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="4"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="company" value="" />]]></add>
+		</operation>
+	</file>
+	
+	<!-- Catalog: Affiliate -->
+
+	<file name="catalog/view/theme/*/template/affiliate/register.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="4"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="company" value="" />]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/affiliate/edit.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="4"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="company" value="" />]]></add>
+		</operation>
+	</file>
+
+	<!-- Catalog: Checkout -->
+	
+	<file name="catalog/view/theme/*/template/checkout/guest.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="company" value="" />]]></add>
+		</operation>			
+	</file>
+	
+	<file name="catalog/view/theme/*/template/checkout/guest_shipping.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="4"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="company" value="" />]]></add>
+		</operation>	
+	</file>
+	
+	<file name="catalog/view/theme/*/template/checkout/register.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="2"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="company" value="" />]]></add>
+		</operation>				
+	</file>
+	
+	<file name="catalog/view/theme/*/template/checkout/shipping_address.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="4"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="company" value="" />]]></add>
+		</operation>		
+	</file>
+	
+	<file name="catalog/view/theme/*/template/checkout/payment_address.tpl">
+		<operation error="skip">
+			<search position="before" offset="1"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[<!--]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after" offset="4"><![CDATA[<?php echo $entry_company; ?></label>]]></search>
+			<add><![CDATA[--><input type="hidden" name="company" value="" />]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/checkout/checkout.tpl">
+		<operation error="skip">
+			<search position="after"><![CDATA[data: $('#collapse-shipping-address input[type=\'text\']]]></search>
+			<add><![CDATA[data: $('#collapse-shipping-address input[type=\'text\'], #collapse-shipping-address input[type=\'hidden\'], #collapse-shipping-address input[type=\'date\'], #collapse-shipping-address input[type=\'datetime-local\'], #collapse-shipping-address input[type=\'time\'], #collapse-shipping-address input[type=\'password\'], #collapse-shipping-address input[type=\'checkbox\']:checked, #collapse-shipping-address input[type=\'radio\']:checked, #collapse-shipping-address textarea, #collapse-shipping-address select'),]]></add>
+		</operation>
+	</file>
+	
+</modification>

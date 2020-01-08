@@ -1,0 +1,44 @@
+---------- Date: 2019-10-16 11:05:00 ~ IP : 103.252.53.218 ----------
+REQUEST URI : /admin/index.php?route=common/dashboard&token=q6Jnjron99IXdCMDbH2NQgOe66nR2NdO
+MOD DETAILS:
+   modFile   : /home/n4j7xo9m7hs6/public_html/vqmod/xml/install.xml
+   id        : 
+   version   : 1.0
+   vqmver    : 
+   author    : Opencart-api.com
+VQModObject::parseMods - Could not resolve path for [system/library/currency.php] (SKIPPED)
+
+File Name    : system/library/cart/customer.php(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): $customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' AND status = '1'");
+----------------------------------------------------------------------
+
+
+---------- Date: 2019-10-16 11:05:04 ~ IP : 103.252.53.218 ----------
+REQUEST URI : /api/rest/login
+MOD DETAILS:
+   modFile   : /home/n4j7xo9m7hs6/public_html/vqmod/xml/opencart_rest_api_login_with_phone.ocmod.xml
+   id        : 
+   version   : 1.0
+   vqmver    : 
+   author    : Opencart-api.com
+
+File Name    : catalog/controller/rest/login.php(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): $email = $post['email'];
+----------------------------------------------------------------------
+
+
+---------- Date: 2019-10-16 12:16:14 ~ IP : 103.252.53.218 ----------
+REQUEST URI : /api/rest/paymentmethods
+MOD DETAILS:
+   modFile   : /home/n4j7xo9m7hs6/public_html/vqmod/xml/dtdc_integration.xml
+   id        : Dikra DTDC INTEGRATION 
+   version   : 1.0.0
+   vqmver    : 1.0.0
+   author    : V2 Bhendekar
+
+File Name    : catalog/model/extension/payment/cod.php(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): $this->language->load('extension/payment/razorpay');
+
+----------------------------------------------------------------------
+
+

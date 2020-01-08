@@ -1,0 +1,125 @@
+.main-content.full-width.inner-page {
+    margin-bottom: 2% !important;
+}
+
+.box {
+   margin-top: 1%;
+}
+#top #cart_block .cart-heading p strong{
+    display: none;
+}
+#top #cart_block .dropdown-menu{
+    right: 0 !important;
+}
+#top #cart_block .cart-heading p{
+    display: none;
+}
+
+@media (max-width: 991px) and (min-width: 767px){
+.responsive #top .search_form {
+    width: 70%;
+    margin-right: 15px;
+}
+}
+
+@media (max-width: 1098px) and (min-width: 991px){
+.responsive #top .search_form {
+    width: 70%;
+    margin-right: 15px;
+}
+}
+
+@media (max-width: 1098px) and (min-width: 992px){
+.responsive .standard-body .full-width .container {
+     width: auto; 
+}
+}
+.home> .background
+{
+background-color: #eceaea;
+}
+
+#top .pattern > .container
+{
+background-color: #fff;
+}
+.box-with-products .clear:after{
+background: none !important;
+}
+.box-with-products .clear:before{
+background: none !important;
+}
+.product-info .price .price-new{
+    font-size: 28px;
+    line-height: 10px;
+}
+.product-info .price{
+padding: 20px 0px 2px 0px;
+}
+
+.standard-body .full-width.main-content .pattern > .container{
+    padding-bottom: 0;
+}
+#main .breadcrumb .background{
+background-color: whitesmoke !important;
+}
+
+.box-with-categories{
+margin-top: 2% !important;
+}
+.product-grid{
+padding-bottom: 50px !important;
+
+}
+/*mobile view header*/
+@media (max-width: 767px){
+.responsive #top .pattern > .container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+}
+@media (max-width: 767px){
+.responsive #top .logo {
+ 
+    padding: 0;
+}
+}
+
+@media (max-width: 767px){
+.responsive #main .header-type-5 #top .search_form {
+    margin: 10px auto 0;
+}
+}
+a:hover, div.pagination-results ul li.active{
+color:#e91e63;
+
+}
+.footer-about-us h6{color:#827d7b;padding:30px 0px 0px 0px;margin:0px;font-size:15px;}
+.footer-block h6{color:#827d7b;}
+.footer-blocks-bottom .footer-block{
+line-height: 2rem;
+    padding: 7px 0px 11px 0px;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 1.11111rem;
+    background: #E7E7E7;
+
+}
+.container-megamenu  .horizontal{
+    margin-left: 10%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

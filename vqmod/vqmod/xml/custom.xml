@@ -1,0 +1,394 @@
+<modification>
+    <id>Dikra Custom Code</id>
+    <version>1.0.0</version>
+    <vqmver>1.0.0</vqmver>
+    <author>V2 Bhendekar</author>
+	
+    <!-- Catalog: Home -->
+    <file name="catalog/view/theme/*/template/common/home.tpl">
+        <operation>
+            <search position="after"><![CDATA[<?php echo $header; ?>]]></search>
+            <add><![CDATA[
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="catalog/view/javascript/cascadingDivs.min.js"></script>
+<script>
+    jQuery(function () {
+        jQuery('#banners').cascadingDivs();
+    });
+</script>
+<style>
+                .module.module-info_blocks.module-info_blocks-289 {
+    display: none;
+}
+    .title-divider{
+        display: none !important;
+    }
+    .title-divider-top{
+        display: block;
+        height: 3px;
+        background: #db8fb3;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        margin-left: 36%;
+        margin-right: auto;
+    }
+    .title-divider-bottom{
+        display: block;
+        height: 3px;
+        background: #db8fb3;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        margin-left: auto;
+        margin-right: 36%;
+    }
+    .banner
+    {
+        background-size: 100% 100% !important;
+        width: 690px;
+        height: 480px;   
+        cursor: pointer;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+@media (max-width: 768px){
+.banner
+    {
+        width: 400px;
+        height: 205px;   
+        cursor: pointer;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+}
+                @media (max-width: 768px) and (min-width:320px){
+.banner
+    {
+        width: 250px;
+        height: 280px !importent;   
+        cursor: pointer;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+}
+    .banner-buttons-row
+    {
+        margin-top: 400px;
+        text-align: center;
+        background-color: rgba(0,0,0,.5);
+        line-height:2.5;
+        color:#fff;
+    }
+</style>
+<div id="banners" class="hidden-xs hidden-sm">
+    <?php if (!empty($banner_images)) { ?>
+                  <?php foreach ($banner_images as $banner) { ?>        
+    <div onclick="window.open('<?php echo $banner['link'] ?>', '_self');" class="banner" style="background: url(<?php echo $banner['image']; ?>) no-repeat;">
+        <div class="banner-buttons-row">
+
+        </div>
+    </div>
+                <?php                
+}
+}else{ ?>
+    <div id="banner-red" class="banner" style="background: url(https://unsplash.it/690/480?image=1053) no-repeat;">
+        <div class="banner-buttons-row">
+
+        </div>
+    </div>
+    <div id="banner-green" class="banner" style="background: url(https://unsplash.it/690/480?image=1052) no-repeat; ">
+        <div class="banner-buttons-row">
+
+        </div>
+    </div>
+    <div id="banner-blue" class="banner" style="background: url(https://unsplash.it/690/480?image=1051) no-repeat;">
+        <div class="banner-buttons-row">
+
+        </div>
+    </div>
+
+
+<?php } ?>
+                </div>
+			]]></add>
+        </operation>
+    </file>
+    <file path="catalog/view/theme/*/template/" 
+          name="journal3/checkout/checkout.tpl,product/product.tpl,product/search.tpl,product/category.tpl,
+product/manufacturer_info.tpl,product/special.tpl,module/bestseller.tpl,module/latest.tpl,module/special.tpl,
+module/featured.tpl,extension/module/bestseller.tpl,extension/module/latest.tpl,
+extension/module/special.tpl,extension/module/featured.tpl,account/account.tpl,account/edit.tpl,account/forgotten.tpl,account/login.tpl,account/newsletter.tpl,
+account/order_info.tpl,account/order_list.tpl,account/password.tpl,account/recurring_info.tpl,account/recurring_list.tpl,account/reset.tpl,account/return_form.tpl,account/return_info.tpl,account/return_list.tpl,account/transaction.tpl,account/voucher.tpl,account/wishlist.tpl,common/success.tpl,error/not_found.tpl,information/contact.tpl,information/information.tpl,information/sitemap.tpl" error="skip">
+        <operation>
+            <search position="replace"><![CDATA[<h1 class="title page-title"><span><?php echo $heading_title; ?></span></h1>]]></search>
+            <add><![CDATA[
+                <style>
+                
+                .title-divider-bottom {
+    display: block;
+    height: 3px;
+    background: #db8fb3;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: 36%;
+}
+                .title-divider-top {
+    display: block;
+    height: 3px;
+    background: #db8fb3;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 36%;
+    margin-right: auto;
+}
+                .refine-categories,.category-description,.products-filter{
+display:none;              
+  }
+                .title-wrapper-top {
+    margin: unset;
+    text-align: center;
+                    padding-left: 20px;
+                    padding-right: 20px;
+}
+                </style>
+                <div class="title-wrapper-top">
+      <div class="title-divider-top"></div>
+    <h3><?php echo $heading_title; ?></h3>
+    <div class="title-divider"></div>
+    <div class="title-divider-bottom"></div>
+  </div>			
+]]></add>
+        </operation>
+    </file>
+	
+    <file path="catalog/view/theme/*/template/" name="product/product.tpl"  error="skip">
+        <operation>
+            <search position="replace"><![CDATA[ <div class="rating">]]></search>
+            <add><![CDATA[
+                <div class="rating hidden">
+]]></add>
+        </operation>
+        <operation>
+            <search position="replace"><![CDATA[ <div class="title page-title"><?php echo $heading_title; ?></div>]]></search>
+            <add><![CDATA[
+                <style>
+                 .title-divider{
+        display: none !important;
+    }
+.temp_product::after{
+                    background: unset;
+              
+                }
+                .temp_product{
+                   text-transform: unset;
+                }
+                   
+                </style>
+               <div class="title temp_product" style="display:block;    text-decoration: none;"><?php echo $heading_title; ?></div>
+]]></add>
+        </operation>
+        <operation>
+            <search position="after"><![CDATA[ <div class="product-blocks blocks-bottom">]]></search>
+            <add><![CDATA[
+          <?php if ($review_status && !$j3->document->isPopup()): ?>
+            <div class="rating" style="margin:2%">
+              <div class="rating-stars">
+                <?php for ($i = 1; $i <= 5; $i++) { ?>
+              <?php if ($rating < $i) { ?>
+              <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+              <?php } else { ?>
+              <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
+              <?php } ?>
+              <?php } ?>
+              </div>
+              <div class="review-links">
+                <a><?php echo $reviews; ?></a>
+                <b><?php echo $j3->settings->get($stylePrefix . 'RatingSeparator'); ?></b>
+                <a><?php echo $text_write; ?></a>
+              </div>
+            </div>
+          <?php endif; ?>	
+]]></add>
+        </operation>
+     
+    </file>
+    <file name="catalog/controller/common/home.php"   error="skip">
+        <operation>
+            <search position="after"><![CDATA[ public function index() {]]></search>
+            <add><![CDATA[
+                if ($this->request->server['HTTPS']) {
+			$img_url=$this->config->get('config_ssl') . 'image/' ;
+		} else {
+			$img_url=$this->config->get('config_url') . 'image/' ;
+		}
+                  $this->load->model('design/custom_banner');
+               $banner_images = $this->model_design_custom_banner->getBannerImages();
+         $data['banner_images'] = array();
+                $this->load->model('tool/image');
+        foreach ($banner_images as  $banner_image) {
+                if (is_file(DIR_IMAGE . $banner_image['image'])) {
+                    $image = $banner_image['image'];
+                    $thumb = $banner_image['image'];
+                } else {
+                    $image = '';
+                    $thumb = 'no_image.png';
+                }
+
+                $data['banner_images'][] = array(
+                    'title' => $banner_image['title'],
+                    'link' => $banner_image['link'],
+                    'image' => $img_url.$image,
+                    'sort_order' => $banner_image['sort_order']
+                );
+            }
+               
+                
+]]></add>
+        </operation>
+         
+    </file>
+    <file path="catalog/view/theme/*/template/" name="checkout/cart.tpl"  error="skip">
+        <operation>
+            <search position="before"><![CDATA[<h1 class="title page-title">]]></search>
+            <add><![CDATA[
+              <style>
+                .title-divider-bottom {
+    display: block;
+    height: 3px;
+    background: #db8fb3;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: 36%;
+}
+                .title-divider-top {
+    display: block;
+    height: 3px;
+    background: #db8fb3;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 36%;
+    margin-right: auto;
+}
+                .refine-categories,.category-description,.products-filter{
+display:none;              
+  }
+                .title-wrapper-top {
+                text-transform: uppercase;
+    margin: unset;
+    text-align: center;
+                    padding-left: 20px;
+                    padding-right: 20px;
+}
+                </style>
+                <div class="title-wrapper-top">
+      <div class="title-divider-top"></div>
+    <h3><?php echo $heading_title; ?></h3>
+    <div class="title-divider"></div>
+    <div class="title-divider-bottom"></div>
+  </div>		
+               	
+]]></add>
+        </operation>
+        <operation>
+            <search position="replace"><![CDATA[<h1 class="title page-title">]]></search>
+            <add><![CDATA[
+                <h1 class="title page-title hidden">
+               	
+]]></add>
+        </operation>
+       
+    </file>
+    
+    <file path="catalog/view/theme/*/template/" name="journal3/checkout/address.tpl" error="skip">
+        <operation>
+            <search position="replace"><![CDATA[<div v-if="('<?php echo $type; ?>' === 'payment') && shipping_required" class="checkbox">]]></search>
+            <add><![CDATA[
+           <div v-if="('<?php echo $type; ?>' === 'payment') && shipping_required" class="checkbox hidden">	
+]]></add>
+        </operation>
+       
+        <operation>
+            <search position="replace"><![CDATA[<select v-model="order_data.<?php echo $type; ?>_zone_id" v-on:change="save()" name="zone_id" id="input-<?php echo $type; ?>-zone" class="form-control">]]></search>
+            <add><![CDATA[
+        <select v-model="order_data.<?php echo $type; ?>_zone_id" v-on:change="save()" name="zone_id" id="input-<?php echo $type; ?>-zone" class="form-control" style="max-width:500px">
+]]></add>
+        </operation>
+    </file>
+    <file path="catalog/view/theme/*/template/" name="account/login.tpl" error="skip">
+        <operation>
+            <search position="replace"><![CDATA[<a href="<?php echo $register; ?>" class="btn btn-primary"><?php echo $button_continue; ?></a>]]></search>
+            <add><![CDATA[
+                 <a class="btn btn-primary" href="javascript:open_register_popup()"><span class="links-text"><?php echo $button_continue; ?></span></a>
+]]></add>
+        </operation>
+       
+    </file>
+    <file path="catalog/language/en-gb/" name="account/login.php" error="skip">
+        <operation>
+            <search position="replace"><![CDATA[$_['entry_email']                  = 'E-Mail Address';]]></search>
+            <add><![CDATA[
+                 $_['entry_email']                  = 'E-Mail/Mobile';
+]]></add>
+        </operation>
+        <operation>
+            <search position="replace"><![CDATA[$_['error_login']                  = 'Warning: No match for E-Mail Address and/or Password.';]]></search>
+            <add><![CDATA[
+                 $_['error_login']                  = 'Warning: No match for E-Mail/Mobile or Password.';
+]]></add>
+        </operation>
+       
+    </file>
+    <file path="system/library/" name="cart/customer.php" error="skip">
+        <operation>
+            <search position="replace"><![CDATA[$customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' AND status = '1'");]]></search>
+            <add><![CDATA[
+                 $customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE (LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' OR  telephone = '" . $this->db->escape(utf8_strtolower($email)) . "') AND status = '1'");
+]]></add>
+        </operation>
+        <operation>
+            <search position="replace"><![CDATA[$customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $this->db->escape($password) . "'))))) OR password = '" . $this->db->escape(md5($password)) . "') AND status = '1' AND approved = '1'");]]></search>
+            <add><![CDATA[
+                 $customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE (LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' OR  telephone = '" . $this->db->escape(utf8_strtolower($email)) . "') AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $this->db->escape($password) . "'))))) OR password = '" . $this->db->escape(md5($password)) . "') AND status = '1' AND approved = '1'");
+]]></add>
+        </operation>
+       
+    </file>
+    <!--BOF time zone changes -->
+   
+    <file path="admin/controller/setting/setting.php">
+        <operation>
+            <search><![CDATA[
+            $this->response->setOutput($this->load->view('setting/setting', $data));
+            ]]></search>
+            <add position="before"><![CDATA[
+            $data['config_timezone'] = $this->config->get('config_timezone');
+            $data['timezones'] = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
+            ]]></add>
+        </operation>
+    </file>
+  
+    <file path="system/library/db.php">
+        <operation>
+            <search><![CDATA[
+            $this->adaptor = new $class($hostname, $username, $password, $database, $port);
+            ]]></search>
+            <add position="after"><![CDATA[
+              $query = $this->adaptor->query("SELECT value FROM " . DB_PREFIX . "setting WHERE `code` = 'config' AND `key` = 'config_timezone' ");
+            if (!empty($query->row)) {
+                $timezone = $query->row['value'];
+                date_default_timezone_set($timezone);
+
+                $now = new DateTime();
+                $mins = $now->getOffset() / 60;
+                $sgn = ($mins < 0 ? -1 : 1);
+                $mins = abs($mins);
+                $hrs = floor($mins / 60);
+                $mins -= $hrs * 60;
+                $offset = sprintf('%+d:%02d', $hrs * $sgn, $mins);
+                $this->adaptor->query("SET time_zone='" . $offset . "'");
+            }
+            ]]></add>
+        </operation>
+    </file>
+    <!--EOF time zone changes -->
+     
+</modification>
+

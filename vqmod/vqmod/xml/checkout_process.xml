@@ -1,0 +1,113 @@
+<modification>
+    <id>Dikra Custom Checkout Process</id>
+    <version>1.0.0</version>
+    <vqmver>1.0.0</vqmver>
+    <author>V2 Bhendekar</author>
+	
+    <!-- BOF Catalog: Checkout Login Section -->
+    <file name="catalog/view/theme/*/template/journal3/checkout/login.tpl">
+        <operation>
+            <search position="replace"><![CDATA[<div class="form-group login-options">]]></search>
+            <add><![CDATA[
+              
+                <div class="form-group login-options hidden">
+			]]></add>
+        </operation>
+        <operation>
+            <search position="after"><![CDATA[<div class="buttons" v-if="account === ''">]]></search>
+            <add><![CDATA[
+              
+              <div class="pull-right">
+            <a class="btn btn-primary" href="javascript:open_register_popup()"><span class="links-text">Register</span></a>
+        </div>
+			]]></add>
+        </operation>
+    </file>
+    <file name="catalog/view/theme/*/template/journal3/checkout/shipping_method.tpl">
+        <operation>
+            <search position="replace"><![CDATA[<div class="section-shipping" v-if="shipping_required">]]></search>
+            <add><![CDATA[
+          <div class="section-shipping hidden" v-if="shipping_required">
+			]]></add>
+        </operation>
+    </file>
+    
+    <file name="catalog/controller/journal3/checkout.php">
+        <operation>
+            <search position="before"><![CDATA[
+$data['register_block'] = $this->renderView('journal3/checkout/register', array(
+]]></search>
+            <add><![CDATA[
+              
+                if ($this->customer->isLogged()) {
+			]]></add>
+        </operation>
+        <operation>
+            <search position="before"><![CDATA[
+$data['payment_address_block'] = $this->renderView('journal3/checkout/address', array(
+]]></search>
+            <add><![CDATA[
+              
+                  } else {
+            $data['register_block'] = '';
+        }
+        if ($this->customer->isLogged()) {
+			]]></add>
+        </operation>
+        <operation>
+            <search position="before"><![CDATA[
+$data['shipping_address_block'] = $this->renderView('journal3/checkout/address', array(
+]]></search>
+            <add><![CDATA[
+        } else {
+            $data['payment_address_block'] = '';
+        }
+        if ($this->customer->isLogged()) {
+			]]></add>
+        </operation>
+        <operation>
+            <search position="before"><![CDATA[
+$data['shipping_method_block'] = $this->renderView('journal3/checkout/shipping_method', array(
+]]></search>
+            <add><![CDATA[
+         } else {
+            $data['shipping_address_block'] = '';
+        }
+			]]></add>
+        </operation>
+        <operation>
+            <search position="before"><![CDATA[
+$data['confirm_block'] = $this->renderView('journal3/checkout/confirm', array(
+]]></search>
+            <add><![CDATA[
+        if ($this->customer->isLogged()) {
+	]]></add>
+        </operation>
+        <operation>
+            <search position="before"><![CDATA[
+$this->renderOutput('journal3/checkout/checkout', $data);
+]]></search>
+            <add><![CDATA[
+         }  else {
+        $data['confirm_block']='';
+   }
+	]]></add>
+        </operation>
+      
+    </file>
+    
+    <!-- BOF Catalog: Checkout Login Section -->
+   <file path="catalog/view/theme/*/template/" name="journal3/checkout/checkout.tpl" error="skip">
+        <operation>
+            <search position="after"><![CDATA[<?php echo $content_bottom; ?></div>]]></search>
+            <add><![CDATA[
+<style>
+                div#bottom {
+    display: none;
+}
+                </style>
+
+]]></add>
+        </operation>
+    </file>
+</modification>

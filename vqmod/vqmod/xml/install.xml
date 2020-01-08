@@ -1,0 +1,1402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Opencart Shopping Cart REST API</name>
+    <code>00001</code>
+    <version>1.0</version>
+    <author>Opencart-api.com</author>
+    <link>http://opencart-api.com</link>
+    <file path="catalog/model/account/customer.php">
+        <operation>
+            <search><![CDATA[
+			class ModelAccountCustomer extends Model {
+			 ]]></search>
+            <add position="after"><![CDATA[
+				public function editPasswordById($customer_id, $password) {
+					$this->db->query("UPDATE " . DB_PREFIX . "customer SET password = '" . $this->db->escape(md5($password)) . "' WHERE customer_id = '" . (int)$customer_id . "'");
+				}
+
+				public function editCustomerById($customer_id, $data) {
+
+					$this->db->query("UPDATE " . DB_PREFIX . "customer SET firstname = '" . $this->db->escape($data['firstname']) . "', lastname = '" . $this->db->escape($data['lastname']) . "', email = '" . $this->db->escape($data['email']) . "', telephone = '" . $this->db->escape($data['telephone']) . "', fax = '" . $this->db->escape($data['fax']) . "' WHERE customer_id = '" . (int)$customer_id . "'");
+				}
+
+				public function getCustomersMod($data = array()) {
+					$sql = "SELECT *, CONCAT(c.firstname, ' ', c.lastname) AS name, cgd.name AS customer_group FROM " . DB_PREFIX . "customer c LEFT JOIN " . DB_PREFIX . "customer_group_description cgd ON (c.customer_group_id = cgd.customer_group_id) WHERE cgd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+
+					$implode = array();
+
+					if (!empty($data['filter_name'])) {
+						$implode[] = "CONCAT(c.firstname, ' ', c.lastname) LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+					}
+
+					if (!empty($data['filter_email'])) {
+						$implode[] = "c.email LIKE '" . $this->db->escape($data['filter_email']) . "%'";
+					}
+
+					if (isset($data['filter_newsletter']) && !is_null($data['filter_newsletter'])) {
+						$implode[] = "c.newsletter = '" . (int)$data['filter_newsletter'] . "'";
+					}
+
+					if (!empty($data['filter_customer_group_id'])) {
+						$implode[] = "c.customer_group_id = '" . (int)$data['filter_customer_group_id'] . "'";
+					}
+
+					if (!empty($data['filter_ip'])) {
+						$implode[] = "c.customer_id IN (SELECT customer_id FROM " . DB_PREFIX . "customer_ip WHERE ip = '" . $this->db->escape($data['filter_ip']) . "')";
+					}
+
+					if (isset($data['filter_status']) && !is_null($data['filter_status'])) {
+						$implode[] = "c.status = '" . (int)$data['filter_status'] . "'";
+					}
+
+					if (isset($data['filter_approved']) && !is_null($data['filter_approved'])) {
+						$implode[] = "c.approved = '" . (int)$data['filter_approved'] . "'";
+					}
+
+					if (!empty($data['filter_date_added'])) {
+						$implode[] = "DATE(c.date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+					}
+
+					if ($implode) {
+						$sql .= " AND " . implode(" AND ", $implode);
+					}
+
+					$sort_data = array(
+						'name',
+						'c.email',
+						'customer_group',
+						'c.status',
+						'c.approved',
+						'c.ip',
+						'c.date_added'
+					);
+
+					if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+						$sql .= " ORDER BY " . $data['sort'];
+					} else {
+						$sql .= " ORDER BY name";
+					}
+
+					if (isset($data['order']) && ($data['order'] == 'DESC')) {
+						$sql .= " DESC";
+					} else {
+						$sql .= " ASC";
+					}
+
+					if (isset($data['start']) || isset($data['limit'])) {
+						if ($data['start'] < 0) {
+							$data['start'] = 0;
+						}
+
+						if ($data['limit'] < 1) {
+							$data['limit'] = 20;
+						}
+
+						$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+					}
+
+					$query = $this->db->query($sql);
+
+					return $query->rows;
+				}
+
+			]]></add>
+        </operation>
+    </file>
+    <file path="catalog/model/account/order.php">
+        <operation>
+            <search><![CDATA[
+           class ModelAccountOrder extends Model {
+    		 ]]></search>
+            <add position="after"><![CDATA[
+			public function getAllOrders($start = 0, $limit = 20) {
+				if ($start < 0) {
+					$start = 0;
+				}
+
+				if ($limit < 1) {
+					$limit = 1;
+				}
+
+				$query = $this->db->query("SELECT o.order_id, o.firstname, o.lastname, os.name as status, o.date_added, o.total, o.currency_code, o.currency_value FROM `" . DB_PREFIX . "order` o LEFT JOIN " . DB_PREFIX . "order_status os ON (o.order_status_id = os.order_status_id) WHERE o.order_status_id > '0' AND os.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY o.order_id DESC LIMIT " . (int)$start . "," . (int)$limit);
+
+				return $query->rows;
+			}
+
+			public function getOrdersByUser($customer_id) {
+
+				$query = $this->db->query("SELECT o.order_id, o.firstname, o.lastname, os.name as status, o.date_added, o.total, o.currency_code, o.currency_value FROM `" . DB_PREFIX . "order` o LEFT JOIN " . DB_PREFIX . "order_status os ON (o.order_status_id = os.order_status_id) WHERE o.customer_id = '" . (int)$customer_id . "' AND o.order_status_id > '0' AND os.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY o.order_id DESC");
+
+				return $query->rows;
+			}
+
+			public function getOrdersByFilter($data = array()) {
+				$sql = "SELECT o.*, CONCAT(o.firstname, ' ', o.lastname) AS customer,
+				            payment_country.iso_code_2 as pc_iso_code_2,
+				            payment_country.iso_code_3 as pc_iso_code_3,
+                            shipping_country.iso_code_2 as sc_iso_code_2,
+				            shipping_country.iso_code_3 as sc_iso_code_3,
+				            payment_zone.code as payment_zone_code,
+				            shipping_zone.code as shipping_zone_code
+
+				        FROM `" . DB_PREFIX . "order` o
+				        LEFT JOIN `" . DB_PREFIX . "country` payment_country ON ( payment_country.country_id = o.payment_country_id)
+				        LEFT JOIN `" . DB_PREFIX . "country` shipping_country ON ( shipping_country.country_id = o.shipping_country_id)
+				        LEFT JOIN `" . DB_PREFIX . "zone` payment_zone ON ( payment_zone.zone_id = o.payment_zone_id)
+				        LEFT JOIN `" . DB_PREFIX . "zone` shipping_zone ON ( shipping_zone.zone_id = o.shipping_zone_id)
+				                    ";
+
+				if (isset($data['filter_order_status_id']) && !is_null($data['filter_order_status_id'])) {
+					$sql .= " WHERE o.order_status_id IN ( ". $this->db->escape(rtrim($data['filter_order_status_id'],",")) . ")";
+				} else {
+					$sql .= " WHERE o.order_status_id > '0'";
+				}
+
+				if (!empty($data['filter_order_id'])) {
+					$sql .= " AND o.order_id = '" . (int)$data['filter_order_id'] . "'";
+				}
+
+				if (!empty($data['filter_customer'])) {
+					$sql .= " AND CONCAT(o.firstname, ' ', o.lastname) LIKE '%" . $this->db->escape($data['filter_customer']) . "%'";
+				}
+
+
+				if (!empty($data['filter_date_added_to']) && !empty($data['filter_date_added_from'])) {
+
+					$sql .= " AND o.date_added BETWEEN STR_TO_DATE('" . $this->db->escape($data['filter_date_added_from']) . "','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('" . $this->db->escape($data['filter_date_added_to']) . "','%Y-%m-%d %H:%i:%s')";
+
+				} elseif (!empty($data['filter_date_added_from'])) {
+
+					$sql .= " AND o.date_added >= STR_TO_DATE('" . $this->db->escape($data['filter_date_added_from']) . "','%Y-%m-%d %H:%i:%s')";
+
+				} elseif (!empty($data['filter_date_added_on'])) {
+
+					$sql .= " AND DATE(o.date_added) = DATE('" . $this->db->escape($data['filter_date_added_on']) . "')";
+				}
+
+				if (!empty($data['filter_date_modified_to']) && !empty($data['filter_date_modified_from'])) {
+
+					$sql .= " AND o.date_modified BETWEEN STR_TO_DATE('" . $this->db->escape($data['filter_date_modified_from']) . "','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('" . $this->db->escape($data['filter_date_modified_to']) . "','%Y-%m-%d %H:%i:%s')";
+
+				} elseif (!empty($data['filter_date_modified_from'])) {
+
+					$sql .= " AND o.date_modified >= STR_TO_DATE('" . $this->db->escape($data['filter_date_modified_from']) . "','%Y-%m-%d %H:%i:%s')";
+
+				} elseif (!empty($data['filter_date_modified_on'])) {
+
+					$sql .= " AND DATE(o.date_modified) = DATE('" . $this->db->escape($data['filter_date_modified_on']) . "')";
+				}
+
+
+				if (!empty($data['filter_total'])) {
+					$sql .= " AND o.total = '" . (float)$data['filter_total'] . "'";
+				}
+
+				$sort_data = array(
+					'o.order_id',
+					'customer',
+					'o.date_added',
+					'o.date_modified',
+					'o.total'
+				);
+
+				if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+					$sql .= " ORDER BY " . $data['sort'];
+				} else {
+					$sql .= " ORDER BY o.order_id";
+				}
+
+				if (isset($data['order']) && ($data['order'] == 'DESC')) {
+					$sql .= " DESC";
+				} else {
+					$sql .= " ASC";
+				}
+
+				if (isset($data['start']) || isset($data['limit'])) {
+					if ($data['start'] < 0) {
+						$data['start'] = 0;
+					}
+
+					if ($data['limit'] < 1) {
+						$data['limit'] = 20;
+					}
+
+					$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+				}
+
+                $orders_query = $this->db->query($sql);
+                $orders = array();
+                $index = 0;
+
+                $this->load->model('localisation/language');
+
+                foreach ($orders_query->rows as $order) {
+
+                    $payment_iso_code_2 = '';
+                    $payment_iso_code_3 = '';
+
+                    if (isset($order["pc_iso_code_2"])) {
+                        $payment_iso_code_2 = $order["pc_iso_code_2"];
+                    }
+
+                    if (isset($order["pc_iso_code_3"])) {
+                        $payment_iso_code_3 = $order["pc_iso_code_3"];
+                    }
+
+                    $shipping_iso_code_2 = '';
+                    $shipping_iso_code_3 = '';
+
+                    if (isset($order["sc_iso_code_2"])) {
+                        $shipping_iso_code_2 = $order["sc_iso_code_2"];
+                    }
+
+                    if (isset($order["sc_iso_code_3"])) {
+                        $shipping_iso_code_3 = $order["sc_iso_code_3"];
+                    }
+
+                    if (isset($order["payment_zone_code"])) {
+                        $payment_zone_code = $order["payment_zone_code"];
+                    } else {
+                        $payment_zone_code = '';
+                    }
+
+                    if (isset($order["shipping_zone_code"])) {
+                        $shipping_zone_code = $order["shipping_zone_code"];
+                    } else {
+                        $shipping_zone_code = '';
+                    }
+
+
+                    $language_info = $this->model_localisation_language->getLanguage($order['language_id']);
+
+                    if ($language_info) {
+                        $language_code = $language_info['code'];
+                        $language_filename = $language_info['filename'];
+                        $language_directory = $language_info['directory'];
+                    } else {
+                        $language_code = '';
+                        $language_filename = '';
+                        $language_directory = '';
+                    }
+
+                    $orders[$index] =  array(
+                    'order_id'                => $order['order_id'],
+                    'invoice_no'              => $order['invoice_no'],
+                    'invoice_prefix'          => $order['invoice_prefix'],
+                    'store_id'                => $order['store_id'],
+                    'store_name'              => $order['store_name'],
+                    'store_url'               => $order['store_url'],
+                    'customer_id'             => $order['customer_id'],
+                    'firstname'               => $order['firstname'],
+                    'lastname'                => $order['lastname'],
+                    'telephone'               => $order['telephone'],
+                    'fax'                     => $order['fax'],
+                    'email'                   => $order['email'],
+                    'payment_firstname'       => $order['payment_firstname'],
+                    'payment_lastname'        => $order['payment_lastname'],
+                    'payment_company'         => $order['payment_company'],
+                    //'payment_company_id'      => $order['payment_company_id'],
+                    //'payment_tax_id'          => $order['payment_tax_id'],
+                    'payment_address_1'       => $order['payment_address_1'],
+                    'payment_address_2'       => $order['payment_address_2'],
+                    'payment_postcode'        => $order['payment_postcode'],
+                    'payment_city'            => $order['payment_city'],
+                    'payment_zone_id'         => $order['payment_zone_id'],
+                    'payment_zone'            => $order['payment_zone'],
+                    'payment_zone_code'       => $payment_zone_code,
+                    'payment_country_id'      => $order['payment_country_id'],
+                    'payment_country'         => $order['payment_country'],
+                    'payment_iso_code_2'      => $payment_iso_code_2,
+                    'payment_iso_code_3'      => $payment_iso_code_3,
+                    'payment_address_format'  => $order['payment_address_format'],
+                    'payment_method'          => $order['payment_method'],
+                    'payment_code'            => $order['payment_code'],
+                    'shipping_firstname'      => $order['shipping_firstname'],
+                    'shipping_lastname'       => $order['shipping_lastname'],
+                    'shipping_company'        => $order['shipping_company'],
+                    'shipping_address_1'      => $order['shipping_address_1'],
+                    'shipping_address_2'      => $order['shipping_address_2'],
+                    'shipping_postcode'       => $order['shipping_postcode'],
+                    'shipping_city'           => $order['shipping_city'],
+                    'shipping_zone_id'        => $order['shipping_zone_id'],
+                    'shipping_zone'           => $order['shipping_zone'],
+                    'shipping_zone_code'      => $shipping_zone_code,
+                    'shipping_country_id'     => $order['shipping_country_id'],
+                    'shipping_country'        => $order['shipping_country'],
+                    'shipping_iso_code_2'     => $shipping_iso_code_2,
+                    'shipping_iso_code_3'     => $shipping_iso_code_3,
+                    'shipping_address_format' => $order['shipping_address_format'],
+                    'shipping_method'         => $order['shipping_method'],
+                    'shipping_code'           => $order['shipping_code'],
+                    'comment'                 => $order['comment'],
+                    'total'                   => $order['total'],
+                    'order_status_id'         => $order['order_status_id'],
+                    'language_id'             => $order['language_id'],
+                    'language_code'           => $language_code,
+                    'language_filename'       => $language_filename,
+                    'language_directory'      => $language_directory,
+                    'currency_id'             => $order['currency_id'],
+                    'currency_code'           => $order['currency_code'],
+                    'currency_value'          => $order['currency_value'],
+                    'ip'                      => $order['ip'],
+                    'forwarded_ip'            => $order['forwarded_ip'],
+                    'user_agent'              => $order['user_agent'],
+                    'accept_language'         => $order['accept_language'],
+                    'date_modified'           => $order['date_modified'],
+                    'date_added'              => $order['date_added']
+                    );
+                    $index++;
+                }
+
+                return $orders;
+            }
+
+            public function getOrderStatuses() {
+
+                $query = $this->db->query("SELECT order_status_id, name FROM " . DB_PREFIX . "order_status WHERE language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY name");
+
+                return $query->rows;
+            }
+
+        public function getOrderOptionsMod($order_id, $order_product_id) {
+            $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_option
+             LEFT JOIN " . DB_PREFIX . "product_option_value pov ON (" . DB_PREFIX . "order_option.product_option_value_id = pov.product_option_value_id)
+            WHERE order_id = '" . (int)$order_id . "' AND order_product_id = '" . (int)$order_product_id . "'");
+
+            return $query->rows;
+        }
+
+        public function getOrderHistoriesRest($order_id) {
+            $query = $this->db->query("SELECT oh.date_added, os.name AS status, oh.comment, oh.notify FROM " . DB_PREFIX . "order_history oh LEFT JOIN " . DB_PREFIX . "order_status os ON oh.order_status_id = os.order_status_id WHERE oh.order_id = '" . (int)$order_id . "' AND os.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY oh.date_added ASC");
+
+            return $query->rows;
+        }
+
+        public function getOrderStatusById($order_id) {
+            $query = $this->db->query("SELECT order_status_id AS status FROM `" . DB_PREFIX . "order` WHERE order_id = '" . (int)$order_id . "'");
+
+            return $query->row['status'];
+        }
+
+			]]></add>
+        </operation>
+    </file>
+    <file path="catalog/model/catalog/product.php">
+        <operation>
+            <search><![CDATA[
+           class ModelCatalogProduct extends Model {
+			 ]]></search>
+            <add position="after"><![CDATA[
+				public function getChecksum() {
+					$query = $this->db->query("CHECKSUM TABLE " . DB_PREFIX . "product, "
+						. DB_PREFIX . "category,"
+						. DB_PREFIX . "product_to_category,"
+						. DB_PREFIX . "product_description"
+
+					);
+					return $query->rows;
+				}
+
+				public function getTotalProductsByManufacturerId($manufacturer_id) {
+					$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "product WHERE manufacturer_id = '" . (int)$manufacturer_id . "'");
+					return $query->row['total'];
+				}
+
+
+				public function getProductsAllData($data = array(), $customer) {
+					if ($customer->isLogged()) {
+						$customer_group_id = $customer->getGroupId();
+					} else {
+						$customer_group_id = $this->config->get('config_customer_group_id');
+					}
+
+					$sql = "
+							  SELECT DISTINCT *,
+								 pd.name AS name, p.image, m.name AS manufacturer,
+								(SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < NOW()) AND (pd2.date_end = '0000-00-00' OR pd2.date_end > NOW())) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1)
+								 AS discount,
+								(SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1)
+								 AS special,
+								(SELECT product_special_id FROM " . DB_PREFIX . "product_special ps
+									WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$customer_group_id . "'
+									AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW())
+									AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1)
+								 AS special_id,
+								 (SELECT points FROM " . DB_PREFIX . "product_reward pr
+									WHERE pr.product_id = p.product_id AND customer_group_id = '" . (int)$customer_group_id . "')
+								 AS reward,
+									(SELECT ss.name FROM " . DB_PREFIX . "stock_status ss WHERE ss.stock_status_id = p.stock_status_id
+									 AND ss.language_id = '" . (int)$this->config->get('config_language_id') . "')
+								 AS stock_status,
+									(SELECT wcd.unit FROM " . DB_PREFIX . "weight_class_description wcd
+										WHERE p.weight_class_id = wcd.weight_class_id AND wcd.language_id = '" . (int)$this->config->get('config_language_id') . "')
+								AS weight_class,
+									(SELECT lcd.unit FROM " . DB_PREFIX . "length_class_description lcd
+										WHERE p.length_class_id = lcd.length_class_id AND lcd.language_id = '" . (int)$this->config->get('config_language_id') . "')
+								AS length_class,
+									(SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1
+										WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id)
+								AS rating,
+									(SELECT COUNT(*) AS total FROM " . DB_PREFIX . "review r2 WHERE r2.product_id = p.product_id
+										AND r2.status = '1' GROUP BY r2.product_id)
+								AS reviews,
+								p.sort_order ";
+
+							if (!empty($data['filter_category_id'])) {
+								if (!empty($data['filter_sub_category'])) {
+									$sql .= " FROM " . DB_PREFIX . "category_path cp LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (cp.category_id = p2c.category_id)";
+								} else {
+									$sql .= " FROM " . DB_PREFIX . "product_to_category p2c";
+								}
+								if (!empty($data['filter_filter'])) {
+									$sql .= " LEFT JOIN " . DB_PREFIX . "product_filter pf ON (p2c.product_id = pf.product_id) LEFT JOIN " . DB_PREFIX . "product p ON (pf.product_id = p.product_id)";
+								} else {
+									$sql .= " LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id)";
+								}
+							} else {
+								$sql .= " FROM " . DB_PREFIX . "product p";
+							}
+
+						  $sql.= "
+						  LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id)
+						  LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id)
+						  LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)
+						  WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "'
+						  AND p.status = '1' AND p.date_available <= NOW()
+						  AND p2s.store_id = '" . (int)$this->config->get('config_store_id')."'";
+
+					$sql.= $this->filterSql($data);
+
+					$query = $this->db->query($sql);
+
+					if ($query->num_rows) {
+                        $ret = $this->productData($query->rows);
+                        $specialIds = $ret['specialIds'];
+                        $product_data = $ret['product_data'];
+
+						if(count($specialIds) > 0){
+							$specialsQuery = $this->db->query("SELECT date_start, date_end, price, product_id FROM " . DB_PREFIX . "product_special ps WHERE ps.product_special_id IN (" . implode(',', $specialIds) . ")");
+
+							foreach ($specialsQuery->rows as $special) {
+
+								if(isset($product_data[$special['product_id']])){
+									$product_data[$special['product_id']]['special'] = $special['price'];
+									$product_data[$special['product_id']]['special_start_date'] = $special['date_start'];
+									$product_data[$special['product_id']]['special_end_date'] = $special['date_end'];
+								}
+							}
+						}
+						return $product_data;
+					} else {
+						return false;
+					}
+				}
+
+
+                public function getProductsTotal($data = array(), $customer, $onlycount=true) {
+
+					if ($customer->isLogged()) {
+						$customer_group_id = $customer->getGroupId();
+					} else {
+						$customer_group_id = $this->config->get('config_customer_group_id');
+					}
+
+                    $sql = "SELECT COUNT(DISTINCT p.product_id) AS total";
+
+
+                    if (!empty($data['filter_category_id'])) {
+                        if (!empty($data['filter_sub_category'])) {
+                            $sql .= " FROM " . DB_PREFIX . "category_path cp LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (cp.category_id = p2c.category_id)";
+                        } else {
+                            $sql .= " FROM " . DB_PREFIX . "product_to_category p2c";
+                        }
+                        if (!empty($data['filter_filter'])) {
+                            $sql .= " LEFT JOIN " . DB_PREFIX . "product_filter pf ON (p2c.product_id = pf.product_id) LEFT JOIN " . DB_PREFIX . "product p ON (pf.product_id = p.product_id)";
+                        } else {
+                            $sql .= " LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id)";
+                        }
+                    } else {
+                        $sql .= " FROM " . DB_PREFIX . "product p";
+                    }
+
+                      $sql.= "
+                      LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id)
+                      LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id)
+                      LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id)
+                      WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "'
+                      AND p.status = '1' AND p.date_available <= NOW()
+                      AND p2s.store_id = '" . (int)$this->config->get('config_store_id')."'";
+
+					$sql.= $this->filterSql($data, $onlycount);
+
+                    $query = $this->db->query($sql);
+                    return $query->row['total'];
+
+				}
+
+				private function filterSql($data, $onlycount = false){
+			        $sql = "";
+					if (!empty($data['filter_category_id'])) {
+						if (!empty($data['filter_sub_category'])) {
+							$sql .= " AND cp.path_id = '" . (int)$data['filter_category_id'] . "'";
+						} else {
+							$sql .= " AND p2c.category_id = '" . (int)$data['filter_category_id'] . "'";
+						}
+
+						if (!empty($data['filter_filter'])) {
+							$implode = array();
+
+							$filters = explode(',', $data['filter_filter']);
+
+							foreach ($filters as $filter_id) {
+								$implode[] = (int)$filter_id;
+							}
+
+							$sql .= " AND pf.filter_id IN (" . implode(',', $implode) . ")";
+						}
+					}
+
+                    if (!empty($data['filter_sku'])) {
+                        $sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_sku'])) . "'";
+                    }
+
+                    if (!empty($data['filter_model'])) {
+                        $sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_model'])) . "'";
+                    }
+
+					if (!empty($data['filter_name']) ) {
+						$sql .= " AND (";
+
+						if (!empty($data['filter_name'])) {
+							$implode = array();
+
+							$words = explode(' ', trim(preg_replace('/\s\s+/', ' ', $data['filter_name'])));
+
+							foreach ($words as $word) {
+								$implode[] = "pd.name LIKE '%" . $this->db->escape($word) . "%'";
+							}
+
+							if ($implode) {
+								$sql .= " " . implode(" AND ", $implode) . "";
+							}
+
+							if (!empty($data['filter_description'])) {
+								$sql .= " OR pd.description LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+							}
+						}
+
+						if (!empty($data['filter_name']) && !empty($data['filter_tag'])) {
+							$sql .= " OR ";
+						}
+
+						if (!empty($data['filter_tag'])) {
+							$sql .= "pd.tag LIKE '%" . $this->db->escape($data['filter_tag']) . "%'";
+						}
+
+						if (!empty($data['filter_name'])) {
+							$sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+							$sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+							$sql .= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+							$sql .= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+							$sql .= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+							$sql .= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+							$sql .= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+						}
+
+						$sql .= ")";
+					}
+
+					if (!empty($data['filter_manufacturer_id'])) {
+						$sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";
+					}
+
+
+					if (!empty($data['filter_date_added_to']) && !empty($data['filter_date_added_from'])) {
+
+						$sql .= " AND p.date_added BETWEEN STR_TO_DATE('" . $this->db->escape($data['filter_date_added_from']) . "','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('" . $this->db->escape($data['filter_date_added_to']) . "','%Y-%m-%d %H:%i:%s')";
+
+					} elseif (!empty($data['filter_date_added_from'])) {
+
+						$sql .= " AND p.date_added >= STR_TO_DATE('" . $this->db->escape($data['filter_date_added_from']) . "','%Y-%m-%d %H:%i:%s')";
+
+					} elseif (!empty($data['filter_date_added_on'])) {
+
+						$sql .= " AND DATE(p.date_added) = DATE('" . $this->db->escape($data['filter_date_added_on']) . "')";
+					}
+
+					if (!empty($data['filter_date_modified_to']) && !empty($data['filter_date_modified_from'])) {
+
+						$sql .= " AND p.date_modified BETWEEN STR_TO_DATE('" . $this->db->escape($data['filter_date_modified_from']) . "','%Y-%m-%d %H:%i:%s') AND STR_TO_DATE('" . $this->db->escape($data['filter_date_modified_to']) . "','%Y-%m-%d %H:%i:%s')";
+
+					} elseif (!empty($data['filter_date_modified_from'])) {
+
+						$sql .= " AND p.date_modified >= STR_TO_DATE('" . $this->db->escape($data['filter_date_modified_from']) . "','%Y-%m-%d %H:%i:%s')";
+
+					} elseif (!empty($data['filter_date_modified_on'])) {
+
+						$sql .= " AND DATE(p.date_modified) = DATE('" . $this->db->escape($data['filter_date_modified_on']) . "')";
+					}
+
+
+                    if(empty($onlycount)) {
+
+                        $sql .= " GROUP BY p.product_id";
+
+                        $sort_data = array(
+                            'name'=>'pd.name',
+                            'model'=>'p.model',
+                            'quantity'=>'p.quantity',
+                            'price'=>'p.price',
+                            'id'=>'p.product_id',
+                            'rating'=>'rating',
+                            'sort_order'=>'p.sort_order',
+                            'date_added'=>'p.date_added',
+                            'date_modified'=>'p.date_modified'
+                        );
+
+                        if (isset($data['sort']) && in_array($data['sort'], array_keys($sort_data))) {
+                            if ($data['sort'] == 'name' || $data['sort'] == 'model') {
+                                $sql .= " ORDER BY LCASE(" . $sort_data[$data['sort']] . ")";
+                            } elseif ($data['sort'] == 'price') {
+                                $sql .= " ORDER BY (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";
+                            } else {
+                                $sql .= " ORDER BY " . $sort_data[$data['sort']];
+                            }
+                        } else {
+                            $sql .= " ORDER BY p.sort_order";
+                        }
+
+                        if (isset($data['order']) && (strtolower($data['order']) == strtolower('DESC'))) {
+                            $sql .= " DESC, LCASE(pd.name) DESC";
+                        } else {
+                            $sql .= " ASC, LCASE(pd.name) ASC";
+                        }
+
+
+                        if (isset($data['start']) || isset($data['limit'])) {
+                            if ($data['limit'] < 1) {
+                                $limit = 20;
+                            }else {
+                                $limit = (int)$data['limit'];
+                            }
+
+
+                            if ($data['start'] < 0) {
+                                $offset = 0;
+                            }else{
+                                $offset = (int)$data['start'];
+                            }
+
+                            $sql .= " LIMIT " . $offset . "," . $limit;
+                        }
+                    }
+
+                return $sql;
+            }
+
+            private function productData($results){
+            $specialIds = array();
+            $product_data = array();
+            foreach ($results as $result) {
+						$specialIds[$result['product_id']] = $result['special_id'];
+                        $product_data[$result['product_id']] = array(
+                                        'product_id'       => $result['product_id'],
+                                        'name'             => $result['name'],
+                                        'description'      => $result['description'],
+                                        'meta_description' => $result['meta_description'],
+                                        'meta_keyword'     => $result['meta_keyword'],
+                                        'meta_title'     => $result['meta_title'],
+                                        'tag'              => $result['tag'],
+                                        'model'            => $result['model'],
+                                        'sku'              => $result['sku'],
+                                        'upc'              => $result['upc'],
+                                        'ean'              => $result['ean'],
+                                        'jan'              => $result['jan'],
+                                        'isbn'             => $result['isbn'],
+                                        'mpn'              => $result['mpn'],
+                                        'location'         => $result['location'],
+                                        'quantity'         => $result['quantity'],
+                                        'stock_status'     => $result['stock_status'],
+                                        'stock_status_id'  => $result['stock_status_id'],
+                                        'image'            => $result['image'],
+                                        'manufacturer_id'  => $result['manufacturer_id'],
+                                        'manufacturer'     => $result['manufacturer'],
+                                        'price'            => ($result['discount'] ? $result['discount'] : $result['price']),
+                                        'special'          => isset($result['special']) ? $result['special'] : '',
+                                        'reward'           => $result['reward'],
+                                        'points'           => $result['points'],
+                                        'tax_class_id'     => $result['tax_class_id'],
+                                        'date_available'   => $result['date_available'],
+                                        'weight'           => $result['weight'],
+                                        'weight_class_id'  => $result['weight_class_id'],
+                                        'length'           => $result['length'],
+                                        'width'            => $result['width'],
+                                        'height'           => $result['height'],
+                                        'length_class_id'  => $result['length_class_id'],
+                                        'subtract'         => $result['subtract'],
+                                        'rating'           => round($result['rating']),
+                                        'reviews'          => $result['reviews'] ? $result['reviews'] : 0,
+                                        'minimum'          => $result['minimum'],
+                                        'sort_order'       => $result['sort_order'],
+                                        'status'           => $result['status'],
+                                        'date_added'       => $result['date_added'],
+                                        'date_modified'    => $result['date_modified'],
+                                        'viewed'           => $result['viewed'],
+										'weight_class'     => $result['weight_class'],
+										'length_class'     => $result['length_class'],
+										'shipping'         => $result['shipping']
+                                    );
+                    }
+
+					$specialIds = array_filter($specialIds, function($item){
+						return !empty($item);
+					});
+
+                    return array(
+                                'specialIds' => $specialIds,
+                                'product_data' => $product_data
+                    );
+            }
+
+           public function getProductsData($data = array(), $customer) {
+                if ($customer->isLogged()) {
+                    $customer_group_id = $customer->getGroupId();
+                } else {
+                    $customer_group_id = $this->config->get('config_customer_group_id');
+                }
+
+                $sql = "SELECT p.product_id";
+
+
+                if (!empty($data['filter_category_id'])) {
+                    if (!empty($data['filter_sub_category'])) {
+                        $sql .= " FROM " . DB_PREFIX . "category_path cp LEFT JOIN " . DB_PREFIX . "product_to_category p2c ON (cp.category_id = p2c.category_id)";
+                    } else {
+                        $sql .= " FROM " . DB_PREFIX . "product_to_category p2c";
+                    }
+                    if (!empty($data['filter_filter'])) {
+                        $sql .= " LEFT JOIN " . DB_PREFIX . "product_filter pf ON (p2c.product_id = pf.product_id) LEFT JOIN " . DB_PREFIX . "product p ON (pf.product_id = p.product_id)";
+                    } else {
+                        $sql .= " LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id)";
+                    }
+                } else {
+                    $sql .= " FROM " . DB_PREFIX . "product p";
+                }
+
+                $sql .= " LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
+
+                $product_data = array();
+
+				$sql.= $this->filterSql($data);
+
+                $query = $this->db->query($sql);
+
+                foreach ($query->rows as $result) {
+                    $product_data[$result['product_id']] = $result['product_id'];
+                }
+
+                return $this->getProductsByIds(array_keys($product_data), $customer, $sortSql);
+            }
+
+            public function getProductsByIds($product_ids, $customer, $sortSql = "ORDER BY p.product_id ASC") {
+
+                if(count($product_ids) == 0){
+                    return false;
+                }
+
+                if ($customer->isLogged()) {
+                    $customer_group_id = $customer->getGroupId();
+                } else {
+                    $customer_group_id = $this->config->get('config_customer_group_id');
+                }
+
+                $query = $this->db->query("SELECT DISTINCT *, pd.name AS name, p.image, m.name AS manufacturer, (SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < NOW()) AND (pd2.date_end = '0000-00-00' OR pd2.date_end > NOW())) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount,
+				(SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special,
+				(SELECT product_special_id FROM " . DB_PREFIX . "product_special ps
+				WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$customer_group_id . "'
+				AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special_id, (SELECT points FROM " . DB_PREFIX . "product_reward pr WHERE pr.product_id = p.product_id AND customer_group_id = '" . (int)$customer_group_id . "') AS reward, (SELECT ss.name FROM " . DB_PREFIX . "stock_status ss WHERE ss.stock_status_id = p.stock_status_id AND ss.language_id = '" . (int)$this->config->get('config_language_id') . "') AS stock_status, (SELECT wcd.unit FROM " . DB_PREFIX . "weight_class_description wcd WHERE p.weight_class_id = wcd.weight_class_id AND wcd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS weight_class, (SELECT lcd.unit FROM " . DB_PREFIX . "length_class_description lcd WHERE p.length_class_id = lcd.length_class_id AND lcd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS length_class, (SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1 WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id) AS rating, (SELECT COUNT(*) AS total FROM " . DB_PREFIX . "review r2 WHERE r2.product_id = p.product_id AND r2.status = '1' GROUP BY r2.product_id) AS reviews, p.sort_order FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id) WHERE p.product_id IN (" . implode(',', $product_ids) . ") AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'".$sortSql);
+
+				if ($query->num_rows) {
+					$ret = $this->productData($query->rows);
+					$specialIds = $ret['specialIds'];
+					$product_data = $ret['product_data'];
+
+					if(count($specialIds) > 0){
+						$specialsQuery = $this->db->query("SELECT date_start, date_end, price, product_id FROM " . DB_PREFIX . "product_special ps WHERE ps.product_special_id IN (" . implode(',', $specialIds) . ")");
+
+						foreach ($specialsQuery->rows as $special) {
+
+							if(isset($product_data[$special['product_id']])){
+								$product_data[$special['product_id']]['special'] = $special['price'];
+								$product_data[$special['product_id']]['special_start_date'] = $special['date_start'];
+								$product_data[$special['product_id']]['special_end_date'] = $special['date_end'];
+							}
+						}
+					}
+					return $product_data;
+				} else {
+					return false;
+				}
+            }
+
+            public function getOrderStatusByName($status) {
+
+                $query = $this->db->query("SELECT order_status_id FROM " . DB_PREFIX . "order_status WHERE LCASE(name) = '" . $this->db->escape(utf8_strtolower($status)) . "' AND language_id = '" . (int)$this->config->get('config_language_id') . "'");
+
+                return $query->rows;
+            }
+
+        public function getStockStatuses($data = array()) {
+            if ($data) {
+                $sql = "SELECT * FROM " . DB_PREFIX . "stock_status WHERE language_id = '" . (int)$this->config->get('config_language_id') . "'";
+
+                $sql .= " ORDER BY name";
+
+                if (isset($data['order']) && ($data['order'] == 'DESC')) {
+                    $sql .= " DESC";
+                } else {
+                    $sql .= " ASC";
+                }
+
+                if (isset($data['start']) || isset($data['limit'])) {
+                    if ($data['start'] < 0) {
+                        $data['start'] = 0;
+                    }
+
+                    if ($data['limit'] < 1) {
+                        $data['limit'] = 20;
+                    }
+
+                    $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+                }
+
+                $query = $this->db->query($sql);
+
+                return $query->rows;
+            } else {
+                $stock_status_data = $this->cache->get('stock_status.' . (int)$this->config->get('config_language_id'));
+
+                if (!$stock_status_data) {
+                    $query = $this->db->query("SELECT stock_status_id, name FROM " . DB_PREFIX . "stock_status WHERE language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY name");
+
+                    $stock_status_data = $query->rows;
+
+                    $this->cache->set('stock_status.' . (int)$this->config->get('config_language_id'), $stock_status_data);
+                }
+
+                return $stock_status_data;
+            }
+        }
+
+        public function getLengthClasses($data = array()) {
+            if ($data) {
+                $sql = "SELECT * FROM " . DB_PREFIX . "length_class lc LEFT JOIN " . DB_PREFIX . "length_class_description lcd ON (lc.length_class_id = lcd.length_class_id) WHERE lcd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+
+                $sort_data = array(
+                    'title',
+                    'unit',
+                    'value'
+                );
+
+                if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+                    $sql .= " ORDER BY " . $data['sort'];
+                } else {
+                    $sql .= " ORDER BY title";
+                }
+
+                if (isset($data['order']) && ($data['order'] == 'DESC')) {
+                    $sql .= " DESC";
+                } else {
+                    $sql .= " ASC";
+                }
+
+                if (isset($data['start']) || isset($data['limit'])) {
+                    if ($data['start'] < 0) {
+                        $data['start'] = 0;
+                    }
+
+                    if ($data['limit'] < 1) {
+                        $data['limit'] = 20;
+                    }
+
+                    $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+                }
+
+                $query = $this->db->query($sql);
+
+                return $query->rows;
+            } else {
+                $length_class_data = $this->cache->get('length_class.' . (int)$this->config->get('config_language_id'));
+
+                if (!$length_class_data) {
+                    $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "length_class lc LEFT JOIN " . DB_PREFIX . "length_class_description lcd ON (lc.length_class_id = lcd.length_class_id) WHERE lcd.language_id = '" . (int)$this->config->get('config_language_id') . "'");
+
+                    $length_class_data = $query->rows;
+
+                    $this->cache->set('length_class.' . (int)$this->config->get('config_language_id'), $length_class_data);
+                }
+
+                return $length_class_data;
+            }
+        }
+
+        public function getStores($data = array()) {
+            $store_data = $this->cache->get('store');
+
+            if (!$store_data) {
+                $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "store ORDER BY url");
+
+                $store_data = $query->rows;
+
+                $this->cache->set('store', $store_data);
+            }
+
+            return $store_data;
+        }
+
+            public function getRecurrings($data = array()) {
+                $sql = "SELECT * FROM `" . DB_PREFIX . "recurring` r LEFT JOIN " . DB_PREFIX . "recurring_description rd ON (r.recurring_id = rd.recurring_id) WHERE rd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+
+                if (!empty($data['filter_name'])) {
+                    $sql .= " AND rd.name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+                }
+
+                $sort_data = array(
+                    'rd.name',
+                    'r.sort_order'
+                );
+
+                if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+                    $sql .= " ORDER BY " . $data['sort'];
+                } else {
+                    $sql .= " ORDER BY rd.name";
+                }
+
+                if (isset($data['order']) && ($data['order'] == 'DESC')) {
+                    $sql .= " DESC";
+                } else {
+                    $sql .= " ASC";
+                }
+
+                if (isset($data['start']) || isset($data['limit'])) {
+                    if ($data['start'] < 0) {
+                        $data['start'] = 0;
+                    }
+
+                    if ($data['limit'] < 1) {
+                        $data['limit'] = 20;
+                    }
+
+                    $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+                }
+
+                $query = $this->db->query($sql);
+
+                return $query->rows;
+            }
+
+
+            public function checkProductExists($product_id) {
+                $query = $this->db->query("SELECT COUNT(DISTINCT product_id) AS total FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product_id . "'");
+
+                if (isset($query->row['total'])) {
+                    return $query->row['total'];
+                } else {
+                    return 0;
+                }
+            }
+
+            public static $fields = array(
+                "category" => "p2c.category_id",
+                "quantity" => "p.quantity",
+                "stock_status" => "p.stock_status_id",
+                "manufacturer" => "p.manufacturer_id",
+                "model" => "p.model",
+                "upc" => "p.upc",
+                "name" => "pd.name",
+                "date_start" => "ps.date_start",
+                "date_end" => "ps.date_end",
+                "product_id" => "p.product_id",
+                "price" => "p.price",
+                "status" => "p.status",
+                "date_available" => "p.date_available",
+                "store_id" => "p2s.store_id",
+                "filter_text" => "filter_text",
+            );
+
+
+            public static $operands = array(
+                "=" => "=",
+                "!=" => "!=",
+                ">" => ">",
+                ">=" => ">=",
+                "<" => "<",
+                "<=" => "<=",
+                "!<" => "!<",
+                "!>" => "!>",
+                "<>" => "<>",
+                "in" => "in",
+                "not_in" => "not in",
+                "like" => "like",
+            );
+
+            public static $logicalOperands = array(
+                "and"=>"AND",
+                "or"=>"OR"
+            );
+
+            public static $sort_data = array(
+                            'name'=>'pd.name',
+                            'model'=>'p.model',
+                            'quantity'=>'p.quantity',
+                            //'price'=>'p.price',
+                            'rating'=>'rating',
+                            'sort_order'=>'p.sort_order',
+                            'date_added'=>'p.date_added'
+                        );
+
+
+            private function searchHelper($request){
+                $sql = "";
+
+                foreach($request['filters'] as $filter){
+                    if(array_key_exists($filter['field'], static::$fields)) {
+
+                        $operand = array_key_exists($filter['operand'], static::$operands) ? strtolower(static::$operands[$filter['operand']]) : "=";
+                        $logicalOperand = isset($filter['logical_operand']) && array_key_exists(strtolower($filter['logical_operand']), static::$logicalOperands) ? $filter['logical_operand'] : "AND";
+
+                        if (static::$fields[$filter['field']] == 'filter_text' ) {
+                            $sql .= $logicalOperand."  (";
+
+                            if (!empty( $filter['value'])) {
+                                $implode = array();
+
+                                $words = explode(' ', trim(preg_replace('/\s\s+/', ' ',  $filter['value'])));
+
+                                foreach ($words as $word) {
+                                    $implode[] = "pd.name LIKE '%" . $this->db->escape($word) . "%'";
+                                }
+
+                                if ($implode) {
+                                    $sql .= " " . implode(" AND ", $implode) . "";
+                                }
+
+                                $sql .= " OR pd.description LIKE '%" . $this->db->escape( $filter['value']) . "%'";
+                            }
+
+                            if (!empty( $filter['value'])) {
+                                $sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower( $filter['value'])) . "'";
+                            }
+
+                            if (!empty( $filter['value'])) {
+                                $sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower( $filter['value'])) . "'";
+                            }
+
+                            if (!empty( $filter['value'])) {
+                                $sql .= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower( $filter['value'])) . "'";
+                            }
+
+                            if (!empty( $filter['value'])) {
+                                $sql .= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower( $filter['value'])) . "'";
+                            }
+
+                            if (!empty( $filter['value'])) {
+                                $sql .= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower( $filter['value'])) . "'";
+                            }
+
+                            if (!empty( $filter['value'])) {
+                                $sql .= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower( $filter['value'])) . "'";
+                            }
+
+                            if (!empty( $filter['value'])) {
+                                $sql .= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower( $filter['value'])) . "'";
+                            }
+
+                            $sql .= ")";
+                        } else {
+                            if($operand == "in" || $operand == "not in"){
+                                $sql.=" ".$logicalOperand." ".static::$fields[$filter['field']]
+                                    ." ".$operand." (".$this->db->escape(implode(",",$filter['value'])).")";
+                            } elseif($operand == "like" ){
+                                $sql.=" ".$logicalOperand." ".static::$fields[$filter['field']];
+                                $sql .= " LIKE '%" . $this->db->escape( strtolower($filter['value'])) . "%'";
+                            } else{
+                                $sql.=" ".$logicalOperand." ".static::$fields[$filter['field']]
+                                    ." ".$operand." ".$this->db->escape($filter['value']);
+                            }
+                        }
+                    }
+                }
+
+                return $sql;
+
+            }
+
+
+            public function search($data = array(), $request, $customer) {
+                if ($customer->isLogged()) {
+                    $customer_group_id = $customer->getGroupId();
+                } else {
+                    $customer_group_id = $this->config->get('config_customer_group_id');
+                }
+
+                $sql = "SELECT p.product_id
+                                FROM " . DB_PREFIX . "product p
+                              LEFT JOIN " . DB_PREFIX . "product_to_category p2c
+                                        ON (p.product_id = p2c.product_id)
+                              LEFT JOIN " . DB_PREFIX . "product_description pd
+                                        ON (p.product_id = pd.product_id)
+                              LEFT JOIN " . DB_PREFIX . "product_to_store p2s
+                                        ON (p.product_id = p2s.product_id)
+                              WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "'
+                              AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'
+                              ";
+						if(isset($request['filters'])){
+                        	$sql.= $this->searchHelper($request);
+                        }
+
+                        $sql .= " GROUP BY p.product_id";
+
+                $sortSql = "";
+
+                if (isset($request['sort']) && in_array($request['sort'], array_keys(static::$sort_data))) {
+                    if ($request['sort'] == 'name' || $request['sort'] == 'model') {
+                        $sortSql .= " ORDER BY LCASE(" . static::$sort_data[$request['sort']] . ")";
+                    } elseif ($request['sort'] == 'price') {
+                        $sortSql .= " ORDER BY (CASE WHEN special IS NOT NULL THEN special WHEN discount IS NOT NULL THEN discount ELSE p.price END)";
+                    } else {
+                        $sortSql .= " ORDER BY " . static::$sort_data[$request['sort']];
+                    }
+                } else {
+                    $sortSql .= " ORDER BY p.sort_order";
+                }
+
+                if (isset($request['order']) && (strtolower($request['order']) == strtolower('DESC'))) {
+                    $sortSql .= " DESC, LCASE(pd.name) DESC";
+                } else {
+                    $sortSql .= " ASC, LCASE(pd.name) ASC";
+                }
+
+                $sql.= $sortSql;
+
+                if (isset($data['start']) || isset($data['limit'])) {
+                    if ($data['limit'] < 1) {
+                        $limit = 20;
+                    }else {
+                        $limit = (int)$data['limit'];
+                    }
+
+                    if ($data['start'] < 0) {
+                        $offset = 0;
+                    }else{
+                        $offset = (int)$data['start'];
+                    }
+
+                    $sql .= " LIMIT " . $offset . "," . $limit;
+                }
+
+                if(isset($request['debug']) && isset($request['debug']) == true){
+                    var_dump($sql);
+                }
+
+                $product_data = array();
+
+                $query = $this->db->query($sql);
+                foreach ($query->rows as $result) {
+                    $product_data[$result['product_id']] = $result['product_id'];
+                }
+
+                return $this->getProductsByIds(array_keys($product_data), $customer, $sortSql);
+            }
+
+            public function getStore($store_id) {
+                $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "setting WHERE store_id = '" . (int)$store_id . "'");
+                return $query->rows;
+            }
+
+	public function getModulesByCode($code) {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "module` WHERE `code` = '" . $this->db->escape($code) . "' ORDER BY `name`");
+
+		return $query->rows;
+	}
+
+	public function getBanners($data = array()) {
+		$sql = "SELECT * FROM " . DB_PREFIX . "banner";
+
+		$sort_data = array(
+			'name',
+			'status'
+		);
+
+		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+			$sql .= " ORDER BY " . $data['sort'];
+		} else {
+			$sql .= " ORDER BY name";
+		}
+
+		if (isset($data['order']) && ($data['order'] == 'DESC')) {
+			$sql .= " DESC";
+		} else {
+			$sql .= " ASC";
+		}
+
+		if (isset($data['start']) || isset($data['limit'])) {
+			if ($data['start'] < 0) {
+				$data['start'] = 0;
+			}
+
+			if ($data['limit'] < 1) {
+				$data['limit'] = 20;
+			}
+
+			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+		}
+
+		$query = $this->db->query($sql);
+
+		return $query->rows;
+	}
+
+			]]></add>
+
+        </operation>
+    </file>
+    <file path="system/library/currency.php">
+        <operation>
+            <search><![CDATA[
+				public function has($currency) {
+			 ]]></search>
+            <add position="before"><![CDATA[
+
+
+			public $restCurrencyCode;
+
+			public function setRestCurrencyCode($code){
+				$this->restCurrencyCode = $code;
+			}
+
+			public function getRestCurrencyCode(){
+				return $this->restCurrencyCode;
+			}
+
+			]]></add>
+        </operation>
+    </file>
+    <file path="system/library/cart/currency.php">
+        <operation>
+            <search><![CDATA[
+				public function has($currency) {
+			 ]]></search>
+            <add position="before"><![CDATA[
+
+
+			public $restCurrencyCode;
+
+			public function setRestCurrencyCode($code){
+				$this->restCurrencyCode = $code;
+			}
+
+			public function getRestCurrencyCode(){
+				return $this->restCurrencyCode;
+			}
+
+			]]></add>
+        </operation>
+    </file>
+    <file path="system/library/session.php">
+        <operation>
+
+            <search><![CDATA[
+				if ($this->adaptor && !session_id()) {
+			 ]]></search>
+            <add position="replace"><![CDATA[
+
+			$headers = apache_request_headers();
+			$rest_session_id = "";
+
+			if(isset($headers['X-Oc-Session'])){
+				$rest_session_id = $headers['X-Oc-Session'];
+			}else if(isset($headers['X-OC-SESSION'])){
+				$rest_session_id = $headers['X-OC-SESSION'];
+			}
+
+			if($rest_session_id != ""){
+				session_id($rest_session_id);
+				session_start();
+			}
+
+            if ($this->adaptor && !session_id() && $rest_session_id == "") {
+
+			]]></add>
+
+        </operation>
+
+        <operation>
+
+            <search><![CDATA[
+				class Session {
+			 ]]></search>
+            <add position="replace"><![CDATA[
+            //if your php doesn't support apache_request_headers
+            if( !function_exists('apache_request_headers') ) {
+                function apache_request_headers() {
+                    $arh = array();
+                    $rx_http = '/\AHTTP_/';
+
+                    foreach($_SERVER as $key => $val) {
+                        if( preg_match($rx_http, $key) ) {
+                            $arh_key = preg_replace($rx_http, '', $key);
+                            $rx_matches = array();
+                       // do some nasty string manipulations to restore the original letter case
+                       // this should work in most cases
+                            $rx_matches = explode('_', $arh_key);
+
+                            if( count($rx_matches) > 0 and strlen($arh_key) > 2 ) {
+                                foreach($rx_matches as $ak_key => $ak_val) {
+                                    $rx_matches[$ak_key] = ucfirst($ak_val);
+                                }
+
+                                $arh_key = implode('-', $rx_matches);
+                            }
+
+                            $arh[$arh_key] = $val;
+                        }
+                    }
+
+                    return( $arh );
+                }
+            }
+
+			    class Session {
+
+			]]></add>
+
+        </operation>
+        <operation>
+
+            <search><![CDATA[
+				public function start($key = 'default', $value = '') {
+			 ]]></search>
+            <add position="replace"><![CDATA[
+
+			public function start($key = 'default', $value = '') {
+				$headers = apache_request_headers();
+				$rest_session_id = "";
+
+				if(isset($headers['X-Oc-Session'])){
+					$rest_session_id = $headers['X-Oc-Session'];
+				} else if(isset($headers['X-OC-SESSION'])){
+					$rest_session_id = $headers['X-OC-SESSION'];
+				}
+
+				if($rest_session_id != ""){
+					$value = $rest_session_id;
+				}
+
+			]]></add>
+
+        </operation>
+
+
+    </file>
+</modification>

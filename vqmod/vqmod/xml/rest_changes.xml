@@ -1,0 +1,136 @@
+
+<modification>
+    <id>Dikra Rest Changes Code</id>
+    <version>1.0.0</version>
+    <vqmver>1.0.0</vqmver>
+    <author>V2 Bhendekar</author>
+	
+    <!-- Catalog: Home -->
+    <file name="catalog/controller/rest/register.php">
+        <operation>
+            <search position="before"><![CDATA[public function registerCustomer($data) {]]></search>
+            <add><![CDATA[
+                  public function get_otp() {
+        $this->checkPlugin();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //add customer
+            $post = $this->getPost();
+            if (isset($post['telephone']) && $post['telephone']) {
+                $otp = rand(000000, 999999);
+                $message = "Your OTP for Dikra Shopping Application is $otp";
+                send_sms($message, $post['telephone']);
+                $this->json['status'] = TRUE;
+               // $this->json['otp'] = $otp;
+                $this->session->data['otp_' . $post['telephone']] = $otp;
+            } else {
+                $this->statusCode = 400;
+           $this->allowedHeaders = array("POST");  
+            }
+        } else {
+            $this->statusCode = 405;
+            $this->allowedHeaders = array("POST");
+        }
+
+
+        return $this->sendResponse();
+    }
+			]]></add>
+        </operation>
+        <operation>
+            <search position="replace"><![CDATA[$this->json['error'][] = $this->language->get('error_address_1');]]></search>
+            <add><![CDATA[
+                // $this->json['error'][] = $this->language->get('error_address_1');
+			]]></add>
+        </operation>
+        <operation>
+            <search position="replace"><![CDATA[$this->json['error'][] = $this->language->get('error_city');]]></search>
+            <add><![CDATA[
+                // $this->json['error'][] = $this->language->get('error_city');
+			]]></add>
+        </operation>
+        <operation>
+            <search position="replace"><![CDATA[$this->json['error'][] = $this->language->get('error_city');]]></search>
+            <add><![CDATA[
+                // $this->json['error'][] = $this->language->get('error_city');
+			]]></add>
+        </operation>
+        <operation>
+            <search position="replace"><![CDATA[$this->json['error'][] = $this->language->get('error_city');]]></search>
+            <add><![CDATA[
+                // $this->json['error'][] = $this->language->get('error_city');
+			]]></add>
+        </operation>
+        <operation>
+            <search position="replace"><![CDATA[if (isset($data['country_id'])) {]]></search>
+            <add><![CDATA[
+                /* if (isset($data['country_id'])) {
+			]]></add>
+        </operation>
+        <operation>
+            <search position="before"><![CDATA[if (!isset($data['password']) || (utf8_strlen($data['password']) < 4) || (utf8_strlen($data['password']) > 20)) {]]></search>
+            <add><![CDATA[
+                */ 
+			]]></add>
+        </operation>
+        <operation>
+            <search position="before"><![CDATA[if (!isset($data['fax'])) {]]></search>
+            <add><![CDATA[
+                 $data["address_1"] = ""; 
+                 $data["address_2"] = ""; 
+                 $data["city"] = ""; 
+                 $data["postcode"] = ""; 
+                 $data["country_id"] = ""; 
+                 $data["zone_id"] = ""; 
+			]]></add>
+        </operation>
+        <operation>
+            <search position="before"><![CDATA[if (!isset($data['telephone']) || (utf8_strlen($data['telephone']) < 3) || (utf8_strlen($data['telephone']) > 32)) {]]></search>
+            <add><![CDATA[
+              if (!isset($data['telephone']) || (utf8_strlen($data['telephone']) < 3) || (utf8_strlen($data['telephone']) > 32)) {
+                    $this->json['error'][] = $this->language->get('error_telephone');
+                }
+                if ($this->model_account_customer->getTotalCustomersByTelephone($data['telephone'])) {
+                    $this->json['error']['telephone'] = "Warning: Number  is already registered!";
+                } else {
+                    if (!isset($this->session->data['otp_' . $data['telephone']])) {
+                        $this->json['error']['telephone'] = 'Verify Mobile Number';
+                    }
+                    if (!isset($data['telephone_otp'])) {
+                        $this->json['error']['telephone_otp'] = 'Please Enter OTP';
+                    }
+                    if (isset($this->session->data['otp_' . $data['telephone']]) && $data['telephone'] && isset($data['telephone_otp']) && trim($data['telephone_otp']) != $this->session->data['otp_' . $data['telephone']]) {
+                        $this->json['error']['telephone_otp'] = 'Invalid OTP...! Please Try Again';
+                    }
+                }
+	]]></add>
+        </operation>
+    </file>
+    
+  <file path="admin/view/template/setting/setting.tpl">
+        <operation>
+            <search><![CDATA[<div class="tab-pane" id="tab-local">]]></search>
+            <add position="after"><![CDATA[
+             <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-timezone">Timezone</label>
+                                <div class="col-sm-10">
+                                    <select name="config_timezone" id="input-timezone" class="form-control">
+                                        <?php foreach( $timezones as $timezone){ ?>
+                                        <?php if ($timezone  == $config_timezone){ ?>
+
+                                        <option value="<?php echo $timezone  ?>" selected="selected"><?php echo $timezone  ?></option>
+
+                                        <?php }else{ ?>
+
+                                        <option value="<?php echo $timezone  ?>"><?php echo $timezone  ?></option>
+
+                                        <?php } ?>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+              </div>
+            ]]></add>
+        </operation>
+    </file>
+   
+</modification>
+

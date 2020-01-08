@@ -1,0 +1,45 @@
+---------- Date: 2019-10-11 12:11:02 ~ IP : 103.252.53.218 ----------
+REQUEST URI : /admin/index.php?route=sale/order&token=YIswIYB70r0pgZcyypvtn5zrQkeaZxGC
+MOD DETAILS:
+   modFile   : /home/n4j7xo9m7hs6/public_html/vqmod/xml/install.xml
+   id        : 
+   version   : 1.0
+   vqmver    : 
+   author    : Opencart-api.com
+VQModObject::parseMods - Could not resolve path for [system/library/currency.php] (SKIPPED)
+
+File Name    : system/library/cart/customer.php(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): $customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' AND status = '1'");
+----------------------------------------------------------------------
+
+
+---------- Date: 2019-10-11 12:18:00 ~ IP : 103.252.53.218 ----------
+REQUEST URI : /admin/index.php?route=sale/order&token=YIswIYB70r0pgZcyypvtn5zrQkeaZxGC
+MOD DETAILS:
+   modFile   : /home/n4j7xo9m7hs6/public_html/vqmod/xml/install.xml
+   id        : 
+   version   : 1.0
+   vqmver    : 
+   author    : Opencart-api.com
+VQModObject::parseMods - Could not resolve path for [system/library/currency.php] (SKIPPED)
+
+File Name    : system/library/cart/customer.php(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): $customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' AND status = '1'");
+----------------------------------------------------------------------
+
+
+---------- Date: 2019-10-11 12:22:54 ~ IP : 103.252.53.218 ----------
+REQUEST URI : /admin/index.php?route=sale/order&token=YIswIYB70r0pgZcyypvtn5zrQkeaZxGC
+MOD DETAILS:
+   modFile   : /home/n4j7xo9m7hs6/public_html/vqmod/xml/install.xml
+   id        : 
+   version   : 1.0
+   vqmver    : 
+   author    : Opencart-api.com
+VQModObject::parseMods - Could not resolve path for [system/library/currency.php] (SKIPPED)
+
+File Name    : system/library/cart/customer.php(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): $customer_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' AND status = '1'");
+----------------------------------------------------------------------
+
+
