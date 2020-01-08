@@ -1,0 +1,17 @@
+<?php echo $header; ?><?php echo $column_left; ?>
+<div id="content">
+  <div class="page">
+    <div class="j-header">
+      <div class="j-logo"><span><?php echo JOURNAL3_VERSION; ?></span></div>
+      <div class="j-title"></div>
+      <div class="j-buttons"><a class="button fs-button"><i class="icon icon-fullscreen"></i></a></div>
+    </div>
+    <div class="j-content">
+      <div class="loading">
+        <i class="fa fa-spin icon-uniE92F"></i>
+        <span>Loading...</span>
+      </div>
+    </div>
+  </div>
+</div>
+<?php echo $footer; ?>

